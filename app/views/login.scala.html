@@ -1,0 +1,23 @@
+@(message: String)
+
+@main(message) {
+
+    @header(0)
+
+    <link href="@routes.Assets.at("stylesheets/login.css")" rel="stylesheet">
+
+    <div class="container form-container">
+
+        <form class="form-signin" role="form">
+            <h2 class="form-signin-heading">来交个朋友吧~</h2>
+            <input type="email" class="form-control" placeholder="Email地址" required autofocus>
+            <input type="password" class="form-control" placeholder="密码" required>
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me"> 自动登录
+            </label>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+        </form>
+
+    </div> <!-- /container -->
+
+}
