@@ -1,0 +1,10 @@
+@(map : Map[String, String])
+
+@main("数据显示") {
+
+    @header("showdata")
+
+    @for((k, v) <- map) {
+        @(k + "\t:\t" + v) <br>
+    }
+}
