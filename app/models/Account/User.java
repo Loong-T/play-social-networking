@@ -64,7 +64,7 @@ public class User extends Model {
     public Boolean activated = false;
 
     public static Finder<Long, User> finder =
-            new Finder<Long, User>(Long.class, User.class);
+            new Finder<>(Long.class, User.class);
 
 }
 
