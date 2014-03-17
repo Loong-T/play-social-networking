@@ -1,12 +1,10 @@
 @(message: String)
 
-@main(message) {
-
-    @header("login")
+@main(message, "login") {
 
     <link href="@routes.Assets.at("stylesheets/login.css")" rel="stylesheet">
 
-    <div class="container form-container">
+    <div class="form-container">
 
         <form class="form-signin" role="form">
             <h2 class="form-signin-heading">来交个朋友吧~</h2>

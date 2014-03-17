@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String, nav: String)(content: Html)
 
 <!DOCTYPE html>
 
@@ -13,7 +13,11 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
     </head>
     <body>
-        @content
+        @header(nav)
+
+        <div class="container">
+            @content
+        </div>
 
         <!-- Bootstrap core JavaScript
         ================================================== -->

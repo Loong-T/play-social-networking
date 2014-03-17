@@ -4,8 +4,11 @@ import models.account.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.showdata;
 import views.html.signup;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by Zheng Xuqiang on 14-3-15.
@@ -22,11 +25,17 @@ public class SignUp extends Controller {
         return ok(signup.render("注册新用户", userForm));
     }
 
+    // TODO
     public static Result submit() {
         Form<User> form = userForm.bindFromRequest();
         User user = form.get();
+        user.userName = UUID.randomUUID().toString();
+        Date now = Calendar.getInstance().getTime();
+        user.signUp = now;
+        user.lastLogin = now;
+        user.notesCheck = now;
         user.save();
 
-        return ok(showdata.render(form.data()));
+        return redirect("/showuser");
     }
 }

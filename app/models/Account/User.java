@@ -5,6 +5,7 @@ import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Zheng Xuqiang on 14-3-15.
@@ -19,10 +20,10 @@ public class User extends Model {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
 
-    @Column(name = "users_username")
+    @Column(name = "users_username", nullable = false,unique = true)
     public String userName;
 
-    @Column(name = "users_email")
+    @Column(name = "users_email", nullable = false, unique = true)
     @Constraints.Email
     @Constraints.Required
     public String email;
@@ -41,16 +42,25 @@ public class User extends Model {
     @Column(name = "users_website")
     public String website;
 
-    @Column(name = "users_signup")
-    public Timestamp signUpDate;
+    /**
+     * 注册时间
+     */
+    @Column(name = "users_signup", nullable = false)
+    public Date signUp;
 
-    @Column(name = "users_lastlogin")
-    public Timestamp lastLogin;
+    /**
+     * 上次登录时间
+     */
+    @Column(name = "users_lastlogin", nullable = false)
+    public Date lastLogin;
 
-    @Column(name = "users_notescheck")
-    public Timestamp notesCheck;
+    /**
+     * 上次查看通知时间
+     */
+    @Column(name = "users_notescheck", nullable = false)
+    public Date notesCheck;
 
-    @Column(name = "user_activated")
+    @Column(name = "user_activated", nullable = false)
     public Boolean activated = false;
 
     public static Finder<Long, User> finder =
