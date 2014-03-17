@@ -3,10 +3,12 @@ package models.account;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.util.Date;
 
 /**
  * Created by Zheng Xuqiang on 14-3-17.
+ * friends relationship model class
  * 好友关系Model类
  */
 @Entity
@@ -15,15 +17,17 @@ public class Relationship extends Model {
 
     @Id
     @Column(name = "rs_id")
-    public Long id;
+    public Long relationshipId;
 
     @Column(name = "rs_fromuser", nullable = false)
-    @OneToOne(mappedBy = "users_id")
-    public User fromUser;
+    // TODO
+//    @ManyToMany(targetEntity = User.class, mappedBy = "userId")
+    public Long fromUserId;
 
     @Column(name = "rs_touser", nullable = false)
-    @OneToOne(mappedBy = "users_id")
-    public User toUser;
+    // TODO
+//    @ManyToMany(targetEntity = User.class, mappedBy = "userId")
+    public Long toUserId;
 
     @Column(name = "rs_makedate", nullable = false)
     public Date makeDate;

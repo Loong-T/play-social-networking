@@ -9,6 +9,7 @@ import java.util.Date;
 
 /**
  * Created by Zheng Xuqiang on 14-3-15.
+ * User model class
  * 用户Model类
  */
 @Entity
@@ -18,7 +19,13 @@ public class User extends Model {
     @Id
     @Column(name = "users_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long id;
+    // TODO
+//    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+//    @JoinTable(name = "users_relationship", joinColumns = {
+//            @JoinColumn(name = ("user_id"), referencedColumnName = "userId"),
+//            @JoinColumn(name = ("rs_id"), referencedColumnName = "relationshipId")
+//    })
+    public Long userId;
 
     @Column(name = "users_username", nullable = false,unique = true)
     public String userName;
@@ -43,18 +50,21 @@ public class User extends Model {
     public String website;
 
     /**
+     * Sign up date
      * 注册时间
      */
     @Column(name = "users_signup", nullable = false)
     public Date signUp;
 
     /**
+     * Last login date
      * 上次登录时间
      */
     @Column(name = "users_lastlogin", nullable = false)
     public Date lastLogin;
 
     /**
+     * Last check notification date
      * 上次查看通知时间
      */
     @Column(name = "users_notescheck", nullable = false)
