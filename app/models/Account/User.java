@@ -19,12 +19,6 @@ public class User extends Model {
     @Id
     @Column(name = "users_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    // TODO
-//    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-//    @JoinTable(name = "users_relationship", joinColumns = {
-//            @JoinColumn(name = ("user_id"), referencedColumnName = "userId"),
-//            @JoinColumn(name = ("rs_id"), referencedColumnName = "relationshipId")
-//    })
     public Long userId;
 
     @Column(name = "users_username", nullable = false,unique = true)

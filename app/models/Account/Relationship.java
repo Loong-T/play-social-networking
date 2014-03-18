@@ -19,15 +19,13 @@ public class Relationship extends Model {
     @Column(name = "rs_id")
     public Long relationshipId;
 
-    @Column(name = "rs_fromuser", nullable = false)
-    // TODO
-//    @ManyToMany(targetEntity = User.class, mappedBy = "userId")
-    public Long fromUserId;
+    @JoinColumn(name = "rs_fromuser", referencedColumnName = "users_id", nullable = false, updatable=false)
+    @OneToOne(optional = false, targetEntity = User.class)
+    public User fromUserId;
 
-    @Column(name = "rs_touser", nullable = false)
-    // TODO
-//    @ManyToMany(targetEntity = User.class, mappedBy = "userId")
-    public Long toUserId;
+    @JoinColumn(name = "rs_touser", referencedColumnName = "users_id", nullable = false, updatable=false)
+    @OneToOne(optional = false, targetEntity = User.class)
+    public User toUserId;
 
     @Column(name = "rs_makedate", nullable = false)
     public Date makeDate;
