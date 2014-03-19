@@ -19,11 +19,13 @@ public class Relationship extends Model {
     @Column(name = "rs_id")
     public Long relationshipId;
 
-    @JoinColumn(name = "rs_fromuser", referencedColumnName = "users_id", nullable = false, updatable=false)
+    @JoinColumn(name = "rs_fromuser", referencedColumnName = "users_id",
+            nullable = false, updatable=false)
     @OneToOne(optional = false, targetEntity = User.class)
     public User fromUserId;
 
-    @JoinColumn(name = "rs_touser", referencedColumnName = "users_id", nullable = false, updatable=false)
+    @JoinColumn(name = "rs_touser", referencedColumnName = "users_id",
+            nullable = false, updatable=false)
     @OneToOne(optional = false, targetEntity = User.class)
     public User toUserId;
 
