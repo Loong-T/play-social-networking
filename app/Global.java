@@ -2,6 +2,7 @@ import play.GlobalSettings;
 import play.mvc.Http;
 import play.mvc.SimpleResult;
 import play.libs.F.Promise;
+import views.html.error.notFound;
 
 import static play.mvc.Results.notFound;
 
@@ -15,7 +16,7 @@ public class Global extends GlobalSettings {
     @Override
     public Promise<SimpleResult> onHandlerNotFound(Http.RequestHeader request) {
         return Promise.<SimpleResult>pure(notFound(
-                views.html.notFound.render("页面找不到啦(╯﹏╰)b")
+                notFound.render("页面找不到啦(╯﹏╰)b")
         ));
     }
 }

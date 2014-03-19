@@ -4,7 +4,7 @@ import models.account.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.signup;
+import views.html.account.signup;
 
 import java.util.Calendar;
 import java.util.Date;

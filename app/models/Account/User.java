@@ -31,6 +31,7 @@ public class User extends Model {
 
     @Column(name = "users_password")
     @Constraints.Required
+    @Constraints.Min(6)
     public String password;
 
     @Column(name = "users_gender")

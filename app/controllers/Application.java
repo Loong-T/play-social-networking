@@ -15,4 +15,5 @@ public class Application extends Controller {
     public static Result showUser() {
         return ok(showdata.render(User.finder.all()));
     }
+    
 }
