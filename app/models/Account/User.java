@@ -4,7 +4,6 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -31,7 +30,8 @@ public class User extends Model {
 
     @Column(name = "users_password")
     @Constraints.Required
-    @Constraints.Min(6)
+    @Constraints.Pattern(value = "^\\w{6,128}$",
+            message = "密码的长度在6-128之间，可以使用的字符有数字，字母和下划线")
     public String password;
 
     @Column(name = "users_gender")

@@ -1,6 +1,7 @@
 package controllers;
 
 import models.account.User;
+import org.apache.commons.validator.routines.EmailValidator;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -37,5 +38,27 @@ public class SignUp extends Controller {
         user.save();
 
         return redirect("/showuser");
+    }
+
+    /**
+     * 检查Email是否正确，是否已经注册
+     */
+    public static Result checkEmail(String email) {
+        EmailValidator validator = EmailValidator.getInstance();
+        boolean isValidated = validator.isValid(email);
+
+        if (!isValidated) {
+            return ok("无效的Email地址");
+        }
+        else {
+            // 检查Email是否已经注册
+            int existed = User.finder.where().eq("email", email).findList().size();
+
+            if (existed != 0) {
+                return ok("该Email地址已注册");
+            }
+        }
+
+        return ok("有效的Email地址");
     }
 }

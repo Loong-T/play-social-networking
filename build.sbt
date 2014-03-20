@@ -11,4 +11,7 @@ libraryDependencies ++= Seq(
 // MySQL Dependencies
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.29"
 
+// Commons Validator
+libraryDependencies += "commons-validator" % "commons-validator" % "1.4.0"
+
 play.Project.playJavaSettings

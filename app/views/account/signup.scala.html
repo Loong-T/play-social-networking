@@ -12,8 +12,9 @@
 
             <h2 class="form-signup-heading">注册新用户</h2>
 
-            <input type="email" name="email" class="form-control" placeholder="Email地址" required autofocus>
-            <input type="password" name="password" class="form-control" placeholder="密码" required>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Email地址" required autofocus
+                maxlength="255" onblur="checkemail()"><span id="emailstatus"></span>
+            <input type="password" name="password" class="form-control" id="password" placeholder="密码" required>
             <label class="checkbox">
                 <input type="checkbox" name="remember-me" value="remember-me"> 自动登录
             </label>
@@ -22,5 +23,8 @@
         }
 
     </div> <!-- /container -->
+
+    @jsinclude()
+    <script src="@routes.Assets.at("javascripts/account/signup.js")"></script>
 
 }
