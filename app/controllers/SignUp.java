@@ -26,18 +26,31 @@ public class SignUp extends Controller {
         return ok(signup.render("注册新用户", userForm));
     }
 
-    // TODO
+    // TODO 已登录的检查；有效性的验证
     public static Result submit() {
         Form<User> form = userForm.bindFromRequest();
         User user = form.get();
-        user.userName = UUID.randomUUID().toString();
+        user = setUserDate(user);
+
+        // Salt加密
+
+
+        user.save();
+
+        return redirect("/showuser");
+    }
+
+    /**
+     * 设置用户的初试时间
+     * @param user
+     * @return
+     */
+    private static User setUserDate(User user) {
         Date now = Calendar.getInstance().getTime();
         user.signUp = now;
         user.lastLogin = now;
         user.notesCheck = now;
-        user.save();
-
-        return redirect("/showuser");
+        return user;
     }
 
     /**

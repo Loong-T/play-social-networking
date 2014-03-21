@@ -34,6 +34,9 @@ public class User extends Model {
             message = "密码的长度在6-128之间，可以使用的字符有数字，字母和下划线")
     public String password;
 
+    @Column(name = "users_salt")
+    public String salt;
+
     @Column(name = "users_gender")
     @Enumerated
     public Gender gender;

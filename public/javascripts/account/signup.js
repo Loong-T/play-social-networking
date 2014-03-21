@@ -4,15 +4,14 @@
  */
 
 function restrict(elem) {
-    var tf;
+    var tf=$(elem);
     var rx=new RegExp();
 
-    if('email'==elem) {
-        tf=$('#email');
-        rx=/[' "]/gi;
+    if('#username'==elem) {
+        rx=/[\s]/gi;
     }
 
-    tf.value=tf.value.replace(rx, "")
+    tf.val(tf.val().replace(rx, ""));
 }
 
 function checkemail() {
@@ -40,6 +39,13 @@ function checkemail() {
             }
         })
     }
+}
+
+function namehint(){
+    var elem=$('#username');
+    elem.popover('destroy');
+    setpop(elem,'<span class="glyphicon glyphicon-info-sign" style="color: orange"></span> 用户名内不能包含空白符，长度在50字符以内')
+    elem.popover('show');
 }
 
 function setpop(elem,showdata) {

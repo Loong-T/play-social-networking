@@ -30,6 +30,11 @@
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
+.form-signup input[type="text"] {
+    margin-top: -1px;
+    margin-bottom: -1px;
+    border-radius: 0;
+}
 .form-signup input[type="password"] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
