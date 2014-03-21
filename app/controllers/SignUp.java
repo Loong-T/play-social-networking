@@ -48,14 +48,14 @@ public class SignUp extends Controller {
         boolean isValidated = validator.isValid(email);
 
         if (!isValidated) {
-            return ok("无效的Email地址");
+            return badRequest("无效的Email地址");
         }
         else {
             // 检查Email是否已经注册
             int existed = User.finder.where().eq("email", email).findList().size();
 
             if (existed != 0) {
-                return ok("该Email地址已注册");
+                return badRequest("该Email地址已注册");
             }
         }
 

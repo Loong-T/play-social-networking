@@ -13,12 +13,12 @@
             <h2 class="form-signup-heading">注册新用户</h2>
 
             <input type="email" name="email" class="form-control" id="email" placeholder="Email地址" required autofocus
-                maxlength="255" onblur="checkemail()"><span id="emailstatus"></span>
+                maxlength="255" onblur="checkemail()" onfocus="removepop('#email')"><span id="emailstatus"></span>
             <input type="password" name="password" class="form-control" id="password" placeholder="密码" required>
             <label class="checkbox">
                 <input type="checkbox" name="remember-me" value="remember-me"> 自动登录
             </label>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+            <button class="btn btn-lg btn-primary btn-block" id="submit" type="submit">登录</button>
 
         }
 
