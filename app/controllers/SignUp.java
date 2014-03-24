@@ -30,27 +30,9 @@ public class SignUp extends Controller {
     public static Result submit() {
         Form<User> form = userForm.bindFromRequest();
         User user = form.get();
-        user = setUserDate(user);
-
-        // Salt加密
-
-
         user.save();
 
         return redirect("/showuser");
-    }
-
-    /**
-     * 设置用户的初试时间
-     * @param user
-     * @return
-     */
-    private static User setUserDate(User user) {
-        Date now = Calendar.getInstance().getTime();
-        user.signUp = now;
-        user.lastLogin = now;
-        user.notesCheck = now;
-        return user;
     }
 
     /**
@@ -67,7 +49,7 @@ public class SignUp extends Controller {
             // 检查Email是否已经注册
             int existed = User.finder.where().eq("email", email).findList().size();
 
-            if (existed != 0) {
+            if (existed > 0) {
                 return badRequest("该Email地址已注册");
             }
         }
