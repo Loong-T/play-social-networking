@@ -11,6 +11,8 @@ GET         /signup              controllers.SignUp.blank()
 POST        /signup              controllers.SignUp.submit()
 GET         /emailcheck          controllers.SignUp.checkEmail(email)
 GET         /namecheck           controllers.SignUp.checkUserName(username)
+GET         /sendemail           controllers.SignUp.sendEmail()
+GET         /activation          controllers.SignUp.activation(uid, hash)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)

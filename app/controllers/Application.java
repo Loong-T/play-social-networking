@@ -4,7 +4,7 @@ import models.account.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
-import views.html.showdata;
+import views.html.showData;
 
 public class Application extends Controller {
 
@@ -13,7 +13,7 @@ public class Application extends Controller {
     }
 
     public static Result showUser() {
-        return ok(showdata.render(User.finder.all()));
+        return ok(showData.render(User.finder.all()));
     }
     
 }

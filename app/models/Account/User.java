@@ -2,13 +2,13 @@ package models.account;
 
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
+import utils.Crypt;
 
 import javax.persistence.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Created by Zheng Xuqiang on 14-3-15.
@@ -87,7 +87,7 @@ public class User extends Model {
      * @param password 初始未加密的密码
      */
     public void setPassword(String password) {
-        this.salt = genSalt();
+        this.salt = Crypt.genSalt();
         this.password = encryptWithSalt(password, salt);
     }
 
@@ -102,34 +102,11 @@ public class User extends Model {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.reset();
             md.update((password + salt).getBytes());
-            return bytes2Hex(md.digest());
+            return Crypt.bytes2Hex(md.digest());
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             return "";
         }
-    }
-
-    /**
-     * 生成一个随机salt值
-     * @return 随机salt值
-     */
-    private static String genSalt() {
-        return UUID.randomUUID().toString();
-    }
-
-    private static String bytes2Hex(byte[] bytes) {
-        StringBuffer sb = new StringBuffer();
-        String tmp;
-
-        for (byte b : bytes) {
-            tmp = Integer.toHexString(b & 0xff);
-            if (tmp.length() == 1) {
-                sb.append("0");
-            }
-            sb.append(tmp);
-        }
-
-        return sb.toString();
     }
 
     public static Finder<Long, User> finder =

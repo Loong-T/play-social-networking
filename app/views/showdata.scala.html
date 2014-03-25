@@ -1,10 +1,10 @@
 @(users: List[models.account.User])
 
-@main("数据显示", "showdata") {
+@main("数据显示", "showData") {
 
     <link href="@routes.Assets.at("stylesheets/showdata.css")" rel="stylesheet">
 
-    <div class="data">
+    <div class="data jumbotron">
     @for(user <- users) {
         <p>
             Id: @user.userId <br/>

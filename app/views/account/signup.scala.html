@@ -6,22 +6,24 @@
 
     <link href="@routes.Assets.at("stylesheets/account/signup.css")" rel="stylesheet">
 
-    <div class="form-container">
+    <div class="jumbotron">
+        <div class="form-container">
 
-        @form(action = routes.SignUp.submit, 'class -> "form-signup", 'role -> "form") {
+            @form(action = routes.SignUp.submit, 'class -> "form-signup", 'role -> "form") {
 
-            <h2 class="form-signup-heading">注册新用户</h2>
+                <h2 class="form-signup-heading">注册新用户</h2>
 
-            <input type="email" name="email" class="form-control" id="email" placeholder="Email地址" autofocus
-                required maxlength="255" onblur="checkEmail()" onfocus="rmPop('#email')">
-            <input type="text" name="userName" class="form-control" id="username" placeholder="用户名"
-                required onkeyup="restrict('#username')" onfocus="nameHint()" onblur="checkName()" maxlength="50">
-            <input type="password" name="password" class="form-control" id="password" placeholder="密码" required>
-            <button class="btn btn-lg btn-primary btn-block" id="submit" type="submit">注册</button>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email地址" autofocus
+                    required maxlength="255" onblur="checkEmail()" onfocus="rmPop('#email')">
+                <input type="text" name="userName" class="form-control" id="username" placeholder="用户名"
+                    required onkeyup="restrict('#username')" onfocus="nameHint()" onblur="checkName()" maxlength="50">
+                <input type="password" name="password" class="form-control" id="password" placeholder="密码" required>
+                <button class="btn btn-lg btn-primary btn-block" id="submit" type="submit">注册</button>
 
-        }
+            }
 
-    </div> <!-- /container -->
+        </div> <!-- /container -->
+    </div>
 
     @jsinclude()
     <script src="@routes.Assets.at("javascripts/account/signup.js")"></script>

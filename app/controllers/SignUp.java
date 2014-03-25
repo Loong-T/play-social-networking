@@ -1,15 +1,18 @@
 package controllers;
 
+import com.typesafe.plugin.MailerAPI;
+import com.typesafe.plugin.MailerPlugin;
+import utils.Constant;
 import models.account.User;
 import org.apache.commons.validator.routines.EmailValidator;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import utils.Crypt;
+import views.html.account.activation;
 import views.html.account.signup;
+import views.html.account.sendEmail;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,7 +37,9 @@ public class SignUp extends Controller {
         User user = form.get();
         user.save();
 
-        return redirect("/showuser");
+        session("uid", user.userId.toString());
+
+        return redirect("/sendemail");
     }
 
     /**
@@ -46,8 +51,7 @@ public class SignUp extends Controller {
 
         if (!isValidated) {
             return badRequest("无效的Email地址");
-        }
-        else {
+        } else {
             // 检查Email是否已经注册
             int existed = User.finder.where().eq("email", email).findList().size();
 
@@ -68,8 +72,7 @@ public class SignUp extends Controller {
         Matcher m = p.matcher(username);
         if (m.matches()) {
             return badRequest("不合规范的用户名，是不是在里面使用了空白符？");
-        }
-        else {
+        } else {
             // 检查是否已有相同用户名
             int existed = User.finder.where().eq("userName", username).findList().size();
 
@@ -79,5 +82,42 @@ public class SignUp extends Controller {
         }
 
         return ok("可用的用户名");
+    }
+
+    /**
+     * 发送激活邮件
+     */
+    public static Result sendEmail() {
+        User user = User.finder.where().eq("userId", session("uid")).findUnique();
+        String actiAddr = Constant.BASE_URL + "/activation?uid="
+                + user.userId + "&hash=" + Crypt.bytes2Hex(Crypt.md5(user.salt));
+
+        MailerAPI mail = play.Play.application().plugin(MailerPlugin.class).email();
+        mail.setCharset("UTF-8");
+        mail.setSubject("用户账户激活");
+        mail.addRecipient(user.userName + "<" + user.email + ">");
+        mail.addFrom("Social-Network账户激活<social_networking@126.com>");
+        mail.sendHtml("<p>你好" + user.userName
+                + "，</p><p>这封邮件是由Social-Network系统自动发出的账户激活邮件，请点击下面的超链接来激活您的账号（如果链接无法点击，请将地址复制到浏览器地址栏打开）<br><a href=\""
+                + actiAddr + "\">" + actiAddr + "</a></p>如果您没有注册过本网站，请无视这封邮件。请勿回复本邮件。");
+
+        return ok(
+                sendEmail.render("还差一点点就完成了", user)
+        );
+    }
+
+    public static Result activation(String uid, String hash) {
+        User user = User.finder.where().eq("userId", uid).findUnique();
+        if (user != null) {
+            if (user.activated) {
+                return badRequest(activation.render("账户激活失败", false, "该账户已经激活"));
+            }
+            else if (hash.equals(Crypt.bytes2Hex(Crypt.md5(user.salt)))) {
+                user.activated = true;
+                user.save();
+                return ok(activation.render("账户激活成功", true, null));
+            }
+        }
+        return badRequest(activation.render("账户激活失败", false, "激活地址错误"));
     }
 }

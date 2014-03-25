@@ -8,10 +8,13 @@ libraryDependencies ++= Seq(
   cache
 )
 
-// MySQL Dependencies
-libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.29"
-
-// Commons Validator
-libraryDependencies += "commons-validator" % "commons-validator" % "1.4.0"
+libraryDependencies ++= Seq(
+  // MySQL Dependencies
+  "mysql" % "mysql-connector-java" % "5.1.29",
+  // Commons Validator
+  "commons-validator" % "commons-validator" % "1.4.0",
+  // Emailer plugin
+  "com.typesafe" %% "play-plugins-mailer" % "2.1-RC2"
+)
 
 play.Project.playJavaSettings
