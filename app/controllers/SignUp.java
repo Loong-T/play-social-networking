@@ -10,6 +10,8 @@ import views.html.account.signup;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Zheng Xuqiang on 14-3-15.
@@ -50,10 +52,32 @@ public class SignUp extends Controller {
             int existed = User.finder.where().eq("email", email).findList().size();
 
             if (existed > 0) {
-                return badRequest("该Email地址已注册");
+                return badRequest("该Email地址已注册，您可以尝试使用该邮箱进行登录");
             }
         }
 
         return ok("有效的Email地址");
+    }
+
+    /**
+     * 检查用户名是否正确，是否已存在
+     */
+    public static Result checkUserName(String username) {
+        // 检查是否包含空白符
+        Pattern p = Pattern.compile("\\t");
+        Matcher m = p.matcher(username);
+        if (m.matches()) {
+            return badRequest("不合规范的用户名，是不是在里面使用了空白符？");
+        }
+        else {
+            // 检查是否已有相同用户名
+            int existed = User.finder.where().eq("userName", username).findList().size();
+
+            if (existed > 0) {
+                return badRequest("该用户名已存在，请更换。");
+            }
+        }
+
+        return ok("可用的用户名");
     }
 }
