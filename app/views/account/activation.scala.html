@@ -4,7 +4,7 @@
     <div class="jumbotron" style="text-align: center">
         @if(validation){
             <p>邮箱验证完成，您的账户已激活。</p>
-            <a href="#" class="btn btn-large btn-info">登录</a>
+            <a href="@routes.Login.blank" class="btn btn-large btn-info">登录</a>
         } else {
             <p>邮箱验证出错！@message</p>
             <a href="@routes.Application.index" class="btn btn-large btn-info"><i class="icon-home icon-white"></i> 回主页吧...</a>

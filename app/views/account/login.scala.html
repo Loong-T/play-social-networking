@@ -7,17 +7,22 @@
     <div class="jumbotron">
         <div class="form-container">
 
-            <form class="form-signin" role="form">
-                <h2 class="form-signin-heading">来交个朋友吧~</h2>
-                <input type="email" class="form-control" placeholder="Email地址" required autofocus>
-                <input type="password" class="form-control" placeholder="密码" required>
+            <form class="form-login" role="form" onsubmit="">
+                <h2 class="form-login-heading">登录</h2>
+                <input type="email" class="form-control" id="email" placeholder="Email地址"
+                    maxlength="255" required autofocus>
+                <input type="password" class="form-control" id="pwd" placeholder="密码" required>
                 <label class="checkbox">
                     <input type="checkbox" value="remember-me"> 自动登录
                 </label>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="login()">登录</button>
             </form>
 
-        </div> <!-- /container -->
+        </div> <!-- /form-container -->
+
     </div>
+
+    @jsinclude()
+    <script src="@routes.Assets.at("javascripts/account/login.js")"></script>
 
 }

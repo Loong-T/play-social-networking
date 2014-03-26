@@ -97,16 +97,8 @@ public class User extends Model {
      * @param salt salt值
      * @return 加密后字符串
      */
-    private String encryptWithSalt(String password, String salt) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.reset();
-            md.update((password + salt).getBytes());
-            return Crypt.bytes2Hex(md.digest());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return "";
-        }
+    public static String encryptWithSalt(String password, String salt) {
+        return Crypt.bytes2Hex(Crypt.sha256(password + salt));
     }
 
     public static Finder<Long, User> finder =

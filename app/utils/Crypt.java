@@ -36,11 +36,27 @@ public class Crypt {
     }
 
     /**
+     * SHA-256加密
+     */
+    public static byte[] sha256(String param) {
+        return digest(param, "SHA-256");
+    }
+
+    /**
      * MD5加密
      */
     public static byte[] md5(String param) {
+        return digest(param, "MD5");
+    }
+
+    /**
+     * 根据传入的算法名来加密字符串
+     * @param param 需要加密的字符串
+     * @param algorithm 加密算法
+     */
+    public static byte[] digest(String param, String algorithm) {
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
+            MessageDigest md = MessageDigest.getInstance(algorithm);
             md.reset();
             md.update(param.getBytes());
             return md.digest();
