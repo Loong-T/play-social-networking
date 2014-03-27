@@ -5,12 +5,14 @@
 function login() {
   var e = $('#email').val();
   var p = $('#pwd').val();
+  var c = $('input:checkbox').prop('checked') ? true : false;
   if (e != '' && p != '') {
     $.ajax({
       url: '/login',
       type: 'POST',
-      data: {email: e, password: p},
+      data: {email: e, password: p, remember: c},
       success: function (d) {
+        window.location.replace(d);
       },
       error: function (rq, m) {
         if (rq.status == 401) {

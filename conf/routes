@@ -18,5 +18,8 @@ GET         /activation          controllers.SignUp.activation(uid, hash)
 GET         /login               controllers.Login.blank()
 POST        /login               controllers.Login.submit()
 
+# User
+GET         /user                controllers.User.user(uid)
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)
