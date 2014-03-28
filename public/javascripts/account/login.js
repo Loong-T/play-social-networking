@@ -12,7 +12,7 @@ function login() {
       type: 'POST',
       data: {email: e, password: p, remember: c},
       success: function (d) {
-        window.location.replace(d);
+        window.location.href = d;
       },
       error: function (rq, m) {
         if (rq.status == 401) {

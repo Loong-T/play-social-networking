@@ -28,6 +28,7 @@ public class SignUp extends Controller {
     final static Form<User> userForm = Form.form(User.class);
 
     public static Result blank() {
+        session().clear();
         return ok(signup.render("注册新用户", userForm));
     }
 
@@ -53,7 +54,7 @@ public class SignUp extends Controller {
             return badRequest("无效的Email地址");
         } else {
             // 检查Email是否已经注册
-            int existed = User.finder.where().eq("email", email).findList().size();
+            int existed = User.finder.where().eq("email", email).findRowCount();
 
             if (existed > 0) {
                 return badRequest("该Email地址已注册，您可以尝试使用该邮箱进行登录");
@@ -74,7 +75,7 @@ public class SignUp extends Controller {
             return badRequest("不合规范的用户名，是不是在里面使用了空白符？");
         } else {
             // 检查是否已有相同用户名
-            int existed = User.finder.where().eq("userName", username).findList().size();
+            int existed = User.finder.where().eq("userName", username).findRowCount();
 
             if (existed > 0) {
                 return badRequest("该用户名已存在，请更换。");

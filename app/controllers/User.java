@@ -8,6 +8,7 @@ import play.mvc.Result;
  * 用户相关
  */
 public class User extends Controller {
+    // TODO
     public static Result user(String uid) {
         return play.mvc.Results.TODO;
     }

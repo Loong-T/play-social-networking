@@ -9,7 +9,7 @@ import views.html.showData;
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(index.render("项目主页"));
+        return ok(index.render("项目主页", Login.checkLogin()));
     }
 
     public static Result showUser() {

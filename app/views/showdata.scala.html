@@ -1,6 +1,6 @@
 @(users: List[models.account.User])
 
-@main("数据显示", "showData") {
+@main("数据显示", "showData", login = false) {
 
     <link href="@routes.Assets.at("stylesheets/showdata.css")" rel="stylesheet">
 

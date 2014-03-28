@@ -17,6 +17,7 @@ GET         /activation          controllers.SignUp.activation(uid, hash)
 # Login
 GET         /login               controllers.Login.blank()
 POST        /login               controllers.Login.submit()
+GET         /logout              controllers.Login.logout()
 
 # User
 GET         /user                controllers.User.user(uid)
