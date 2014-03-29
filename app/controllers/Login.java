@@ -22,7 +22,7 @@ public class Login extends Controller {
 
     public static Result submit() {
         if (checkLogin()) {
-            return ok(message.render("已登录", "您的账户已经登录，无需重复登录", true));
+            return ok(message.render("已登录", "您的账户已经登录，无需重复登录", Account.getLoginUser()));
         }
 
         DynamicForm data = Form.form().bindFromRequest();

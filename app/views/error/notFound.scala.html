@@ -1,6 +1,6 @@
-@(message: String, login: Boolean)
+@(message: String, user: models.account.User)
 
-@main(message, "notFound", login) {
+@main(message, "notFound", user) {
 
     <link href="@routes.Assets.at("stylesheets/error/notfound.css")" rel="stylesheet">
     <div class="hero-unit center jumbotron">
@@ -12,5 +12,5 @@
         <p><b>或者是点击下面的按钮返回主页</b></p>
         <a href="@routes.Application.index" class="btn btn-large btn-info"><i class="icon-home icon-white"></i>回主页吧...</a>
     </div>
-
+    @jsinclude()
 }

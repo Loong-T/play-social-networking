@@ -1,3 +1,4 @@
+import controllers.Account;
 import controllers.Login;
 import play.GlobalSettings;
 import play.mvc.Http;
@@ -17,7 +18,7 @@ public class Global extends GlobalSettings {
     @Override
     public Promise<SimpleResult> onHandlerNotFound(Http.RequestHeader request) {
         return Promise.<SimpleResult>pure(notFound(
-                notFound.render("页面找不到啦(╯﹏╰)b", Login.checkLogin())
+                notFound.render("页面找不到啦(╯﹏╰)b", Account.getLoginUser())
         ));
     }
 }

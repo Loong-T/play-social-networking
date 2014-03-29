@@ -1,9 +1,10 @@
-@(message: String, login: Boolean)
+@(message: String, user: models.account.User)
 
-@main(message, "home", login) {
+@main(message, "home", user) {
     <div class="jumbotron">
         <h1>Hello, world!</h1>
         <p>这是由我——郑旭强，基于Play 2这个Web框架开发的一个社交网站。这也是我的毕业设计成果.</p>
         <p><a href="http://nerd-is.in" class="btn btn-primary btn-lg" role="button">了解更多 &raquo;</a></p>
     </div>
+    @jsinclude()
 }

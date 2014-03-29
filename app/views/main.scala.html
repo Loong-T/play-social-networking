@@ -1,4 +1,4 @@
-@(title: String, nav: String, login: Boolean)(content: Html)
+@(title: String, nav: String, user: models.account.User)(content: Html)
 
 <!DOCTYPE html>
 
@@ -15,7 +15,7 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
     </head>
     <body>
-        @header(nav, login)
+        @header(nav, user)
 
         <div class="container theme-showcase">
             @content

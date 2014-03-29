@@ -1,5 +1,6 @@
-@(title: String, message: String, login: Boolean)
+@(title: String, message: String, user: models.account.User)
 
-@main(title, "test", login) {
+@main(title, "test", user) {
     <div class="jumbotron">@message</div>
+    @jsinclude()
 }

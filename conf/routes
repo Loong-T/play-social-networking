@@ -20,7 +20,7 @@ POST        /login               controllers.Login.submit()
 GET         /logout              controllers.Login.logout()
 
 # User
-GET         /user                controllers.User.user(uid)
+GET         /user                controllers.Account.user(uid)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)
