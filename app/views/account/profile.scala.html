@@ -1,88 +1,70 @@
 @(title: String, self: models.account.User, user: models.account.User)
+@import models.account.Gender;
+@import java.util.Calendar;
 
 @main(title, "profile", self) {
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    @fainclude()
     <link href="@routes.Assets.at("stylesheets/account/profile.css")" rel="stylesheet">
     <div class="row jumbotron">
         <div class="col-md-2">
-            <ul class="nav nav-pills nav-stacked well">
-                <li class="active"><a href="#"><i class="fa fa-envelope"></i> 资料</a></li>
-                <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-                <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
-                <li><a href="#"><i class="fa fa-key"></i> Security</a></li>
-                <li><a href="@routes.Login.logout()"><i class="fa fa-sign-out"></i> 注销</a></li>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#"><i class="fa fa-book fa-lg"></i> 资料</a></li>
+                <li><a href="#"><i class="fa fa-users fa-lg"></i> 关注</a></li>
+                <li><a href="@routes.Login.logout()"><i class="fa fa-sign-out fa-lg"></i> 注销</a></li>
             </ul>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-10" id="main-content">
             <div class="panel">
-                <img class="pic img-circle" src="http://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/twDq00QDud4/s120-c/photo.jpg" alt="...">
+                <img class="pic img-circle" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像">
                 <div class="name"><small>@user.userName</small></div>
-                <a href="#" class="btn btn-xs btn-primary pull-right" style="margin:10px;"><span class="glyphicon glyphicon-picture"></span> Change cover</a>
+                @if(self != null && self.userId != user.userId) {
+                    <a href="#" class="btn btn-primary pull-right" style="margin:10px;">
+                        <span class="glyphicon glyphicon-plus"></span> 关注</a>
+                } else {
+                    <a class="btn btn-primary pull-right" href="#" style="margin:10px;">
+                        <span class="glyphicon glyphicon-pencil"></span> 修改资料</a>
+                }
             </div>
 
             <br><br><br>
-            <ul class="nav nav-tabs" id="myTab">
-                <li class=""><a href="#inbox" data-toggle="tab"><i class="fa fa-envelope-o"></i> Inbox</a></li>
-                <li><a href="#sent" data-toggle="tab"><i class="fa fa-reply-all"></i> Sent</a></li>
-                <li><a href="#assignment" data-toggle="tab"><i class="fa fa-file-text-o"></i> Assignment</a></li>
-                <li class="active"><a href="#event" data-toggle="tab"><i class="fa fa-clock-o"></i> Event</a></li>
-            </ul>
 
-            <div class="tab-content">
-                <div class="tab-pane" id="inbox">
-                    <a type="button" data-toggle="collapse" data-target="#a1">
-                        <div class="btn-toolbar well well-sm" role="toolbar" style="margin:0px;">
-                            <div class="btn-group"><input type="checkbox"></div>
-                            <div class="btn-group col-md-3">Admin Kumar</div>
-                            <div class="btn-group col-md-8"><b>Hi Check this new Bootstrap plugin</b> <div class="pull-right"><i class="glyphicon glyphicon-time"></i> 12:10 PM <button class="btn btn-primary btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-share-square-o"> Reply</i></button></div> </div>
-                        </div>
-                    </a>
-                    <div id="a1" class="collapse out well">This is the message body1</div>
-                    <br>
-                    <button class="btn btn-primary btn-xs"><i class="fa fa-check-square-o"></i> Delete Checked Item's</button>
+            <div class="row" id="user-data">
+                <div class="col-md-10 col-md-offset-1">
+                    <table class="table table-striped table-responsive table-user-information">
+                        <tbody>
+                            <tr>
+                                <td>电子邮件</td>
+                                <td>@user.email</td>
+                            </tr>
+                            <tr>
+                                <td>性别</td>
+                                <td>@user.gender match {
+                                    case Gender.MALE => {男}
+                                    case Gender.FEMALE => {女}
+                                    case _ => {未知}
+                                }</td>
+                            </tr>
+                            <tr>
+                                <td>注册时间</td>
+                                <td>@user.signUp.format("yyyy年M月d日 E kk:mm:ss")</td>
+                            </tr>
+                            <tr>
+                                <td>最后登录</td>
+                                <td>@user.lastLogin.format("yyyy年M月d日 E kk:mm:ss")</td>
+                            </tr>
+                            <tr>
+                                <td>个人网站</td>
+                                <td>@user.website</td>
+                            </tr>
+                            <tr>
+                                <td>现在时间</td>
+                                <td>@Calendar.getInstance().getTime.format("yyyy年M月d日 E kk:mm:ss")</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-
-                <div class="tab-pane" id="sent">
-                    <a type="button" data-toggle="collapse" data-target="#s1">
-                        <div class="btn-toolbar well well-sm" role="toolbar" style="margin:0px;">
-                            <div class="btn-group"><input type="checkbox"></div>
-                            <div class="btn-group col-md-3">Kumar</div>
-                            <div class="btn-group col-md-8"><b>This is reply from Bootstrap plugin</b> <div class="pull-right"><i class="glyphicon glyphicon-time"></i> 12:30 AM</div> </div>
-                        </div>
-                    </a>
-                    <div id="s1" class="collapse out well">This is the message body1</div>
-                    <br>
-                    <button class="btn btn-primary btn-xs"><i class="fa fa-check-square-o"></i> Delete Checked Item's</button>
-                </div>
-
-
-                <div class="tab-pane" id="assignment">
-                    <a href=""><div class="well well-sm" style="margin:0px;">Open GL Assignments <span class="pull-right"><i class="glyphicon glyphicon-time"></i> 12:20 AM 20 Dec 2014 </span></div></a>
-                </div>
-
-                <div class="tab-pane active" id="event">
-                    <div class="media">
-                        <a class="pull-left" href="#">
-                            <img class="media-object img-thumbnail" width="100" src="http://cfi-sinergia.epfl.ch/files/content/sites/cfi-sinergia/files/WORKSHOPS/Workshop1.jpg" alt="...">
-                        </a>
-                        <div class="media-body">
-                            <h4 class="media-heading">Animation Workshop</h4>
-                            2Days animation workshop to be conducted
-                        </div>
-                    </div>
-                </div>
-
-
-
             </div>
-
         </div>
     </div>
     @jsinclude()
-    <script>
-        $(function () {
-            $('#myTab a:last').tab('show')
-        })
-    </script>
 }

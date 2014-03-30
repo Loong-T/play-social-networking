@@ -19,8 +19,9 @@ GET         /login               controllers.Login.blank()
 POST        /login               controllers.Login.submit()
 GET         /logout              controllers.Login.logout()
 
-# User
+# Account
 GET         /user                controllers.Account.user(uid)
+GET         /forgetpwd           controllers.Account.forgetPwd()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)

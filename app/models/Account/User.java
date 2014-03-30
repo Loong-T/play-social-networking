@@ -5,8 +5,6 @@ import play.db.ebean.Model;
 import utils.Crypt;
 
 import javax.persistence.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -43,7 +41,7 @@ public class User extends Model {
 
     @Column(name = "users_gender")
     @Enumerated
-    public Gender gender;
+    public Gender gender = Gender.OTHER;
 
     @Column(name = "users_avatar")
     public String avatar;
@@ -105,5 +103,3 @@ public class User extends Model {
             new Finder<>(Long.class, User.class);
 
 }
-
-enum Gender {MALE, FEMALE, OTHER}

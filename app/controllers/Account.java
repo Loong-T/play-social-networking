@@ -37,4 +37,8 @@ public class Account extends Controller {
         }
         return null;
     }
+
+    public static Result forgetPwd() {
+        return play.mvc.Results.TODO;
+    }
 }
