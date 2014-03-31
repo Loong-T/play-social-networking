@@ -5,6 +5,8 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.account.profile;
 
+import java.util.HashMap;
+
 /**
  * Created by Zheng Xuqiang on 2014/3/26 0026.
  * 用户相关
@@ -13,7 +15,10 @@ public class Account extends Controller {
     // TODO
     public static Result user(String uid) {
         User user = User.finder.where().idEq(uid).findUnique();
-        return ok(profile.render(user.userName + "的资料详情", Account.getLoginUser(), user));
+        HashMap<String, Object> args = new HashMap<>();
+        args.put("loginUser", Account.getLoginUser());
+        args.put("user", user);
+        return ok(profile.render(user.userName + "的资料详情", args));
     }
 
     public static User getUserById(Long id) {

@@ -1,9 +1,10 @@
-@(title: String, self: models.account.User, user: models.account.User)
+@(title: String, args: Map[String, Object])
+@import models.account.User;
 @import models.account.Gender;
-@import java.util.Calendar;
+@import java.util.Calendar; val user = if (args == null) null else args.get("user").asInstanceOf[User]; val self = if (args == null) null else args.get("loginUser").asInstanceOf[User]
 
-@main(title, "profile", self) {
-    @fainclude()
+@main(title, "profile", args) {
+    @includeFontAwesome()
     <link href="@routes.Assets.at("stylesheets/account/profile.css")" rel="stylesheet">
     <div class="row jumbotron">
         <div class="col-md-2">
@@ -66,5 +67,5 @@
             </div>
         </div>
     </div>
-    @jsinclude()
+    @includeCommonJS()
 }

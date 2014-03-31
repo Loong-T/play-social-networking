@@ -1,7 +1,6 @@
-@(title: String, nav: String, user: models.account.User)(content: Html)
+@(title: String, nav: String, args: Map[String, Object])(content: Html)
 
 <!DOCTYPE html>
-
 <html lang="zh-CN">
     <head>
         <title>@title</title>
@@ -15,7 +14,7 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
     </head>
     <body>
-        @header(nav, user)
+        @header(nav, args)
 
         <div class="container theme-showcase">
             @content

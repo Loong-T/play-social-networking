@@ -1,6 +1,6 @@
-@(title: String, message: String, user: models.account.User)
+@(title: String, message: String, args: Map[String, Object])
 
-@main(title, "test", user) {
+@main(title, "test", args) {
     <div class="jumbotron">@message</div>
-    @jsinclude()
+    @includeCommonJS()
 }

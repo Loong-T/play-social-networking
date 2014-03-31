@@ -1,6 +1,6 @@
 @(title: String, validation: Boolean, message: String = "")
 
-@main(title, "activation", user = null) {
+@main(title, "activation", args = null) {
     <div class="jumbotron" style="text-align : center">
     @if(validation) {
         <p>邮箱验证完成，您的账户已激活。</p>
@@ -11,5 +11,5 @@
             回主页吧...</a>
     }
     </div>
-    @jsinclude()
+    @includeCommonJS()
 }

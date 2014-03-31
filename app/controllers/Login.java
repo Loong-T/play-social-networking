@@ -10,6 +10,8 @@ import utils.DateUitls;
 import views.html.account.login;
 import views.html.message;
 
+import java.util.HashMap;
+
 /**
  * Created by Zheng Xuqiang on 2014/3/25 0025.
  * 登录相关Controller
@@ -21,8 +23,10 @@ public class Login extends Controller {
     }
 
     public static Result submit() {
+        HashMap<String, Object> args = new HashMap<>();
         if (checkLogin()) {
-            return ok(message.render("已登录", "您的账户已经登录，无需重复登录", Account.getLoginUser()));
+            args.put("loginUser", Account.getLoginUser());
+            return ok(message.render("已登录", "您的账户已经登录，无需重复登录", args));
         }
 
         DynamicForm data = Form.form().bindFromRequest();
