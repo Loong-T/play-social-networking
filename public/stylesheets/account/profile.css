@@ -32,3 +32,8 @@ li > a {
 .table-user-information > tbody > tr > td {
   border-top: 0;
 }
+
+.table-user-information > tbody > tr > td:first-child {
+  font-weight: bolder;
+  font-size: 15px;
+}
