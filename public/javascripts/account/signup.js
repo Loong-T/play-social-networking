@@ -6,10 +6,14 @@
 var global = this;
 
 window.onload = function () {
+  // 用来检查登录按钮是否可以按下
   global['validatedEmail'] = false;
   global['validatedName'] = false;
 };
 
+/**
+ * 会将用户名中输入的空格去掉
+ */
 function restrict(elem) {
   var tf = $(elem);
   var rx = new RegExp();

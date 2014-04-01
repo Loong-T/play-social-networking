@@ -21,8 +21,9 @@
                 <img class="pic img-circle" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像">
                 <div class="name"><small>@user.userName</small></div>
                 @if(self != null && self.userId != user.userId) {
-                    <a href="#" class="btn btn-primary pull-right" style="margin:10px;">
-                        <span class="glyphicon glyphicon-plus"></span> 关注</a>
+                    <button type="button" id="follow-btn" class="btn btn-primary pull-right"
+                        onclick="follow(@user.userId)" style="margin:10px;">
+                        <span id="follow-icon" class="glyphicon glyphicon-plus"></span> 关注</button>
                 } else {
                     <a class="btn btn-primary pull-right" href="#" style="margin:10px;">
                         <span class="glyphicon glyphicon-pencil"></span> 修改资料</a>
@@ -70,4 +71,5 @@
         </div>
     </div>
     @includeCommonJS()
+    <script src="@routes.Assets.at("javascripts/account/profile.js")"></script>
 }

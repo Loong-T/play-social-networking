@@ -22,12 +22,12 @@ public class Relationship extends Model {
     @JoinColumn(name = "rs_fromuser", referencedColumnName = "users_id",
             nullable = false, updatable=false)
     @OneToOne(optional = false, targetEntity = User.class)
-    public User fromUserId;
+    public User fromUser;
 
     @JoinColumn(name = "rs_touser", referencedColumnName = "users_id",
             nullable = false, updatable=false)
     @OneToOne(optional = false, targetEntity = User.class)
-    public User toUserId;
+    public User toUser;
 
     @Column(name = "rs_makedate", nullable = false)
     public Date makeDate;
