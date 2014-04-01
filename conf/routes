@@ -4,7 +4,6 @@
 
 # Home page
 GET         /                    controllers.Application.index()
-GET         /showuser            controllers.Application.showUser()
 
 # SignUp
 GET         /signup              controllers.SignUp.blank()

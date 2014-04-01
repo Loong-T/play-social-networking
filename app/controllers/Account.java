@@ -4,6 +4,7 @@ import models.account.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.account.profile;
+import views.html.message;
 
 import java.util.HashMap;
 
@@ -17,6 +18,11 @@ public class Account extends Controller {
         User user = User.finder.where().idEq(uid).findUnique();
         HashMap<String, Object> args = new HashMap<>();
         args.put("loginUser", Account.getLoginUser());
+
+        if (user == null) {
+            return badRequest(message.render("不存在的用户", "该用户不存在", args));
+        }
+
         args.put("user", user);
         return ok(profile.render(user.userName + "的资料详情", args));
     }

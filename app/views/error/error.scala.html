@@ -1,0 +1,15 @@
+@(title: String, args: Map[String, Object])
+
+@main(title, "errorPage", args) {
+
+    <link href="@routes.Assets.at("stylesheets/error/notfound.css")" rel="stylesheet">
+    <div class="hero-unit center jumbotron">
+        <h1>@args("errorMsg").asInstanceOf[String]</h1>
+        <h1><small><span style="font-family : Tahoma, serif ; color : red ; ">Error @args("status").asInstanceOf[Int]</span></small></h1>
+        <br />
+        <p>@args("detailMsg").asInstanceOf[String]</p>
+        <br><br/>
+        <a href="@routes.Application.index" class="btn btn-large btn-info"><i class="icon-home icon-white"></i>回主页吧...</a>
+    </div>
+    @includeCommonJS()
+}

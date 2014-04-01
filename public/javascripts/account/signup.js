@@ -28,7 +28,7 @@ function checkEmail() {
   var elem = $('#email');
   var mail = elem.val();
   if (mail != '') {
-    setPop(elem, '<span class="glyphicon glyphicon-question-sign" style="color: orange"></span> 检查Email中...');
+    setPop(elem, '<i class="fa fa-spinner fa-spin" style="color: orange"></i> 检查Email中...');
     elem.popover('show');
     $.ajax({
       url: '/emailcheck',
@@ -63,7 +63,7 @@ function checkName() {
   var name = elem.val();
   elem.popover('destroy');
   if (name != '') {
-    setPop(elem, '<span class="glyphicon glyphicon-question-sign" style="color: orange"></span> 检查用户名中...');
+    setPop(elem, '<i class="fa fa-info" style="color: orange"></i> 检查用户名中...');
     elem.popover('show');
     $.ajax({
       url: '/namecheck',
@@ -93,7 +93,7 @@ function checkName() {
 function nameHint() {
   var elem = $('#username');
   elem.popover('destroy');
-  setPop(elem, '<span class="glyphicon glyphicon-info-sign" style="color: orange"></span> 用户名内不能包含空白符，长度在50字符以内')
+  setPop(elem, '<i class="fa fa-info" style="color: orange"></i> 用户名内不能包含空白符，长度在50字符以内');
   elem.popover('show');
 }
 

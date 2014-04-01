@@ -12,7 +12,9 @@ import utils.Crypt;
 import views.html.account.activation;
 import views.html.account.signup;
 import views.html.account.sendEmail;
+import views.html.error.error;
 
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,7 +59,7 @@ public class SignUp extends Controller {
             int existed = User.finder.where().eq("email", email).findRowCount();
 
             if (existed > 0) {
-                return badRequest("该Email地址已注册，您可以尝试使用该邮箱进行登录");
+                return badRequest("该Email地址已注册");
             }
         }
 
@@ -89,21 +91,30 @@ public class SignUp extends Controller {
      * 发送激活邮件
      */
     public static Result sendEmail() {
+        HashMap<String, Object> args = new HashMap<>();
+        args.put("loginUser", Account.getLoginUser());
         User user = User.finder.where().eq("userId", session("uid")).findUnique();
         String actiAddr = Constant.BASE_URL + "/activation?uid="
                 + user.userId + "&hash=" + Crypt.bytes2Hex(Crypt.md5(user.salt));
 
-        MailerAPI mail = play.Play.application().plugin(MailerPlugin.class).email();
-        mail.setCharset("UTF-8");
-        mail.setSubject("用户账户激活");
-        mail.addRecipient(user.userName + "<" + user.email + ">");
-        mail.addFrom("Social-Network账户激活<social_networking@126.com>");
-        mail.sendHtml("<p>你好" + user.userName
-                + "，</p><p>这封邮件是由Social-Network系统自动发出的账户激活邮件，请点击下面的超链接来激活您的账号（如果链接无法点击，请将地址复制到浏览器地址栏打开）<br><a href=\""
-                + actiAddr + "\">" + actiAddr + "</a></p>如果您没有注册过本网站，请无视这封邮件。请勿回复本邮件。");
+        try {
+            MailerAPI mail = play.Play.application().plugin(MailerPlugin.class).email();
+            mail.setCharset("UTF-8");
+            mail.setSubject("用户账户激活");
+            mail.addRecipient(user.userName + "<" + user.email + ">");
+            mail.addFrom("Social-Network账户激活<social_networking@126.com>");
+            mail.sendHtml("<p>你好" + user.userName
+                    + "，</p><p>这封邮件是由Social-Network系统自动发出的账户激活邮件，请点击下面的超链接来激活您的账号（如果链接无法点击，请将地址复制到浏览器地址栏打开）<br><a href=\""
+                    + actiAddr + "\">" + actiAddr + "</a></p>如果您没有注册过本网站，请无视这封邮件。请勿回复本邮件。");
+        } catch (Exception e) {
+            args.put("status", 500);
+            args.put("errorMsg", "系统出现异常了，我会努力排除错误的(╯﹏╰)b");
+            args.put("detailMsg", "发送激活邮件失败");
+            return internalServerError(error.render("发送激活邮件失败", args));
+        }
 
         return ok(
-                sendEmail.render("还差一点点就完成了", user)
+                sendEmail.render("还差一点点就完成了", null)
         );
     }
 

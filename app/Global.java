@@ -3,7 +3,7 @@ import play.GlobalSettings;
 import play.mvc.Http;
 import play.mvc.SimpleResult;
 import play.libs.F.Promise;
-import views.html.error.notFound;
+import views.html.error.error;
 
 import java.util.HashMap;
 
@@ -20,8 +20,11 @@ public class Global extends GlobalSettings {
     public Promise<SimpleResult> onHandlerNotFound(Http.RequestHeader request) {
         HashMap<String, Object> args = new HashMap<>();
         args.put("loginUser", Account.getLoginUser());
+        args.put("status", 404);
+        args.put("errorMsg", "页面找不到啦(╯﹏╰)b");
+        args.put("detailMsg", "您所请求的页面不存在");
         return Promise.<SimpleResult>pure(notFound(
-                notFound.render("页面找不到啦(╯﹏╰)b", args)
+                error.render("找不到该页面", args)
         ));
     }
 }

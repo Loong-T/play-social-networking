@@ -1,6 +1,7 @@
 @(title: String, args: Map[String, Object])
 @import models.account.User;
 @import models.account.Gender;
+@import utils.Constant;
 @import java.util.Calendar; val user = if (args == null) null else args.get("user").asInstanceOf[User]; val self = if (args == null) null else args.get("loginUser").asInstanceOf[User]
 
 @main(title, "profile", args) {
@@ -10,7 +11,8 @@
         <div class="col-md-2">
             <ul class="nav nav-pills nav-stacked">
                 <li class="active"><a href="#"><i class="fa fa-book fa-lg"></i> 资料</a></li>
-                <li><a href="#"><i class="fa fa-users fa-lg"></i> 关注</a></li>
+                <li><a href="#"><i class="fa fa-eye fa-lg"></i> 关注</a></li>
+                <li><a href="#"><i class="fa fa-group fa-lg"></i> 群组</a></li>
                 <li><a href="@routes.Login.logout()"><i class="fa fa-sign-out fa-lg"></i> 注销</a></li>
             </ul>
         </div>
@@ -42,16 +44,16 @@
                                 <td>@user.gender match {
                                     case Gender.MALE => {男}
                                     case Gender.FEMALE => {女}
-                                    case _ => {未知}
+                                    case _ => {其他}
                                 }</td>
                             </tr>
                             <tr>
                                 <td>注册时间</td>
-                                <td>@user.signUp.format("yyyy年M月d日 E kk:mm:ss")</td>
+                                <td>@user.signUp.format(Constant.DATE_FORMAT)</td>
                             </tr>
                             <tr>
                                 <td>最后登录</td>
-                                <td>@user.lastLogin.format("yyyy年M月d日 E kk:mm:ss")</td>
+                                <td>@user.lastLogin.format(Constant.DATE_FORMAT)</td>
                             </tr>
                             <tr>
                                 <td>个人网站</td>
@@ -59,7 +61,7 @@
                             </tr>
                             <tr>
                                 <td>现在时间</td>
-                                <td>@Calendar.getInstance().getTime.format("yyyy年M月d日 E kk:mm:ss")</td>
+                                <td>@Calendar.getInstance().getTime.format(Constant.DATE_FORMAT)</td>
                             </tr>
                         </tbody>
                     </table>
