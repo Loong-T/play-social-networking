@@ -1,5 +1,6 @@
 package models.account;
 
+import com.avaje.ebean.Ebean;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
@@ -37,5 +38,12 @@ public class Relationship extends Model {
 
     public static Finder<Long, Relationship> finder
             = new Finder<>(Long.class, Relationship.class);
+
+    public static Relationship getRelationshipByUser(Long fromUser, Long toUser) {
+        return Ebean.find(Relationship.class).where()
+                .eq("rs_fromuser", fromUser)
+                .eq("rs_touser", toUser)
+                .findUnique();
+    }
 
 }

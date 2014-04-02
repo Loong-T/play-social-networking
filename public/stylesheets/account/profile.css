@@ -37,3 +37,7 @@ li > a {
   font-weight: bolder;
   font-size: 15px;
 }
+
+#follow-btn {
+  margin: 10px;
+}

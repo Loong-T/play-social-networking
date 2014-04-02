@@ -1,5 +1,6 @@
 package controllers;
 
+import models.account.Relationship;
 import models.account.User;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -13,22 +14,20 @@ import java.util.HashMap;
  * 用户相关
  */
 public class Account extends Controller {
-    // TODO
     public static Result user(String uid) {
-        User user = User.finder.where().idEq(uid).findUnique();
+        Long id = Long.parseLong(uid);
+        User user = User.getUserById(id);
+        User self = Account.getLoginUser();
         HashMap<String, Object> args = new HashMap<>();
-        args.put("loginUser", Account.getLoginUser());
 
         if (user == null) {
             return badRequest(message.render("不存在的用户", "该用户不存在", args));
         }
 
+        args.put("followed", Relationship.getRelationshipByUser(self.userId, user.userId) != null);
+        args.put("loginUser", Account.getLoginUser());
         args.put("user", user);
         return ok(profile.render(user.userName + "的资料详情", args));
-    }
-
-    public static User getUserById(Long id) {
-        return User.finder.where().idEq(id).findUnique();
     }
 
     /**

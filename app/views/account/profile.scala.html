@@ -20,13 +20,25 @@
             <div class="panel">
                 <img class="pic img-circle" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像">
                 <div class="name"><small>@user.userName</small></div>
-                @if(self != null && self.userId != user.userId) {
-                    <button type="button" id="follow-btn" class="btn btn-primary pull-right"
-                        onclick="follow(@user.userId)" style="margin:10px;">
-                        <span id="follow-icon" class="glyphicon glyphicon-plus"></span> 关注</button>
-                } else {
-                    <a class="btn btn-primary pull-right" href="#" style="margin:10px;">
-                        <span class="glyphicon glyphicon-pencil"></span> 修改资料</a>
+                @* 登录时才显示 *@
+                @if(self != null) {
+                    @* 其他用户页面 *@
+                    @if(self.userId != user.userId) {
+                        @* 已关注 *@
+                        @if(args("followed").asInstanceOf[Boolean]) {
+                            <button type="button" id="follow-btn" class="btn btn-info pull-right"
+                                onclick="unfollow(@user.userId)">
+                                <span class="glyphicon glyphicon-minus"></span> 已关注</button>
+                        } else {
+                            <button type="button" id="follow-btn" class="btn btn-primary pull-right"
+                                onclick="follow (@user.userId)">
+                                <span class="glyphicon glyphicon-plus"></span> 关注</button>
+                        }
+                    } else {
+                        @* 在自己的页面可以修改资料 *@
+                        <a class="btn btn-primary pull-right" href="#" style="margin: 10px;">
+                            <span class="glyphicon glyphicon-pencil"></span> 修改资料</a>
+                    }
                 }
             </div>
 

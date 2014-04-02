@@ -26,7 +26,7 @@ public class Login extends Controller {
         HashMap<String, Object> args = new HashMap<>();
         if (checkLogin()) {
             args.put("loginUser", Account.getLoginUser());
-            return ok(message.render("已登录", "您的账户已经登录，无需重复登录", args));
+            return badRequest("您的账户已经登录，无需重复登录");
         }
 
         DynamicForm data = Form.form().bindFromRequest();

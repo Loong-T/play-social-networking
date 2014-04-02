@@ -102,4 +102,8 @@ public class User extends Model {
     public static Finder<Long, User> finder =
             new Finder<>(Long.class, User.class);
 
+    public static User getUserById(Long id) {
+        return finder.where().idEq(id).findUnique();
+    }
+
 }
