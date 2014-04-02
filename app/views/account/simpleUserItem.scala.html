@@ -1,0 +1,21 @@
+@(user: models.account.User)
+
+<div class="col-md-10 col-md-offset-1">
+    <div class="user-row">
+        <div class="pull-left">
+            <img class="img-circle" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像">
+        </div>
+        <div class="pull-left user-info">
+            <strong>@user.userName</strong><br>
+            <span class="text-muted">用户简介</span>
+        </div>
+        <div class="pull-right buttons">
+            <button class="btn btn-sm btn-primary" type="button" data-toggle="tooltip" data-original-title="发送消息">
+                <span class="glyphicon glyphicon-envelope"></span>
+            </button>
+            <button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" data-original-title="移除关注">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -25,7 +25,7 @@ public class Account extends Controller {
         }
 
         args.put("followed", Relationship.getRelationshipByUser(self.userId, user.userId) != null);
-        args.put("loginUser", Account.getLoginUser());
+        args.put("loginUser", self);
         args.put("user", user);
         return ok(profile.render(user.userName + "的资料详情", args));
     }
