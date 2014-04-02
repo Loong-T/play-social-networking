@@ -15,6 +15,7 @@ Thanks to:
 > * [Glyphicons](http://glyphicons.com/)
 > * [FontAwesome](http://fortawesome.github.io/Font-Awesome/)
 > * [Bootsnipp](http://bootsnipp.com/)
+> * [jQuery](http://jquery.com/)
 
 -------------
 
@@ -30,4 +31,5 @@ Thanks to:
 > * [Glyphicons](http://glyphicons.com/)
 > * [FontAwesome](http://fortawesome.github.io/Font-Awesome/)
 > * [Bootsnipp](http://bootsnipp.com/)
+> * [jQuery](http://jquery.com/)
 
