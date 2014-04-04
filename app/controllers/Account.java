@@ -2,9 +2,11 @@ package controllers;
 
 import models.account.Relationship;
 import models.account.User;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.account.profile;
+import views.html.account.profileEdit;
 import views.html.message;
 
 import java.util.HashMap;
@@ -14,6 +16,8 @@ import java.util.HashMap;
  * 用户相关
  */
 public class Account extends Controller {
+
+    final static Form<User> userForm = Form.form(User.class);
 
     /**
      * 获取指定Id用户的资料页面
@@ -57,7 +61,25 @@ public class Account extends Controller {
         return null;
     }
 
+    // TODO
     public static Result forgetPwd() {
         return play.mvc.Results.TODO;
+    }
+
+    /**
+     * 返回用户编辑信息的页面
+     */
+    public static Result edit(String uid) {
+        Long id = Long.parseLong(uid);
+        User self = getLoginUser();
+        HashMap<String, Object> args = new HashMap<>();
+
+        if (!id.equals(self.userId))
+            return redirect("/login");
+
+        args.put("user", self);
+        args.put("self", self);
+
+        return ok(profileEdit.render("资料修改", args, userForm));
     }
 }

@@ -12,9 +12,9 @@
             <div class="panel">
                 <img class="pic img-circle" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像">
                 <div class="name">
-                    <small>@{user.userName}的资料</small>
+                    <small>@{user.userName} 的资料</small>
                     <p class="text-muted pull-right">@if(user.description == null) {
-                        这人太懒了，什么描述也没有╮(╯﹏╰）╭
+                        这人太懒了，什么描述也没有 ╮（╯﹏╰）╭
                     } else {
                         @if(user.description.length > 15) {
                             @user.description.substring(0, 15)+"..."
@@ -39,7 +39,7 @@
                         }
                     } else {
                         @* 在自己的页面可以修改资料 *@
-                        <a class="btn btn-primary pull-right" href="#" style="margin: 10px;">
+                        <a class="btn btn-primary pull-right" href="@routes.Account.edit(user.userId.toString)" style="margin: 10px;">
                             <span class="glyphicon glyphicon-pencil"></span> 修改资料</a>
                     }
                 }
@@ -53,10 +53,10 @@
                         <tbody>
                             @profileRow("电子邮件", user.email)
                             @profileRow("性别", user.gender match {
-                                                    case Gender.MALE => {"男"}
-                                                    case Gender.FEMALE => {"女"}
-                                                    case _ => {"其他"}
-                                })
+                                                    case Gender.MALE => "男"
+                                                    case Gender.FEMALE => "女"
+                                                    case _ => "其他"
+                            })
                             @profileRow("所在地", user.address)
                             @profileRow("生日", if(user.birthday == null) null else user.birthday.format(Constant.BIRTHDAY_FORMAT))
                             @profileRow("注册时间", user.signUp.format(Constant.DATE_FORMAT))

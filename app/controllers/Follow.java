@@ -83,7 +83,7 @@ public class Follow extends Controller {
         List<User> users = getFollowedUsers(user);
         args.put("followedUsers", users);
 
-        return ok(followList.render(user.userName + "关注列表", args));
+        return ok(followList.render(user.userName + "的关注列表", args));
     }
 
     /**

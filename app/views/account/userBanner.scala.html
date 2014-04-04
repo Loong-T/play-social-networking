@@ -1,0 +1,17 @@
+@(user: models.account.User, text: String)
+
+<div class="panel">
+    <img class="pic img-circle" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像">
+    <div class="name">
+        <small>@{user.userName} 的@text</small>
+        <p class="text-muted pull-right">@if(user.description == null) {
+            这人太懒了，什么描述也没有 ╮（╯﹏╰）╭
+        } else {
+            @if(user.description.length > 15) {
+                @user.description.substring(0, 15)+"..."
+            } else {
+                @user.description
+            }
+        }</p>
+    </div>
+</div>

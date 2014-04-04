@@ -21,6 +21,7 @@ GET         /logout              controllers.Login.logout()
 # Account
 GET         /user                controllers.Account.user(uid)
 GET         /forgetpwd           controllers.Account.forgetPwd()
+GET         /edit-profile        controllers.Account.edit(uid)
 
 # Follow
 GET         /follow              controllers.Follow.addFollow(uid)

@@ -1,17 +1,14 @@
 @(title: String, args: Map[String, Object])
 @import models.account.User; val user = if (args == null) null else args("user").asInstanceOf[User]; val self = if (args == null) null else args("loginUser").asInstanceOf[User]
 
-@main(title, "profile", args) {
+@main(title, "follow-list", args) {
     @includeFontAwesome()
     <link rel="stylesheet" href="@routes.Assets.at("stylesheets/account/followList.css")"/>
     <br><br>
     <div class="row jumbotron">
         @userNav("follow-list", user)
         <div class="col-md-10">
-            <div class="panel">
-                <img class="pic img-circle" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像">
-                <div class="name"><small>@{user.userName}的关注</small></div>
-            </div>
+            @userBanner(user, "关注")
             <br><br><br>
             <div class="user-list row">
                 @if(args("followedUsers").asInstanceOf[List[User]].size <= 0) {

@@ -1,0 +1,48 @@
+@(title: String, args: Map[String, Object], form: Form[models.account.User])
+@import models.account.User; val user = if (args == null) null else args.get("user").asInstanceOf[User]
+
+@main(title, "profile", args) {
+    @includeFontAwesome()
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/account/profileEdit.css")"/>
+    <br><br>
+    <div class="row jumbotron">
+        @userNav("profile", user)
+        <div class="col-md-10">
+            @userBanner(user, "资料")
+            <br><br><br>
+            <div class="form-container row">
+                <div class="col-md-10 col-md-offset-1">
+                    <form class="form-edit form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="inputAddr" class="col-sm-2 control-label">位置</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputAddr">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDate" class="col-sm-2 control-label">生日</label>
+                            <div class="col-sm-10">
+                                <input type="date" id="inputDate" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDesc" class="col-sm-2 control-label">描述</label>
+                            <div class="col-sm-10">
+                                <label>
+                                    <textarea class="form-control" rows="3" id="inputDesc"></textarea>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default">保存</button>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @includeCommonJS()
+    <script src="@routes.Assets.at("javascripts/account/followList.js")"></script>
+}

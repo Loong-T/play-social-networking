@@ -2,6 +2,11 @@ li > a {
   color: #262626;
 }
 
+.img-circle {
+  width: 55px;
+  border: 3px solid #dadada;
+}
+
 .pic {
   margin-top: 50px;
   width: 120px;
@@ -25,23 +30,27 @@ li > a {
   font-size: 14px;
 }
 
-.table-user-information > tbody > tr {
-  border-top: 1px solid rgb(221, 221, 221);
+.form-container {
+  border-radius: 10px;
+  padding: 20px 0;
+  margin: auto 0;
+  background-color: #fafafa;
 }
 
-.table-user-information > tbody > tr:first-child {
-  border-top: 0;
+.form-edit {
+  padding: 15px;
+  margin: 0 auto;
 }
 
-.table-user-information > tbody > tr > td {
-  border-top: 0;
+.form-edit .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 16px;
 }
 
-.table-user-information > tbody > tr > td:first-child {
-  font-weight: bolder;
-  font-size: 15px;
-}
-
-#follow-btn {
-  margin: 10px;
+.form-edit .form-control:focus {
+  z-index: 2;
 }
