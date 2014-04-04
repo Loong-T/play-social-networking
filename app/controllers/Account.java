@@ -14,6 +14,11 @@ import java.util.HashMap;
  * 用户相关
  */
 public class Account extends Controller {
+
+    /**
+     * 获取指定Id用户的资料页面
+     * @param uid 指定用户Id
+     */
     public static Result user(String uid) {
         Long id = Long.parseLong(uid);
         User user = User.getUserById(id);
@@ -24,9 +29,13 @@ public class Account extends Controller {
             return badRequest(message.render("不存在的用户", "该用户不存在", args));
         }
 
-        args.put("followed", Relationship.getRelationshipByUser(self.userId, user.userId) != null);
         args.put("loginUser", self);
         args.put("user", user);
+
+        // 当用户没有登录时，下面两项被设置为false
+        args.put("followed", self != null && (Relationship.getRelationshipByUser(self.userId, user.userId) != null));
+        args.put("self", self != null && user.userId.equals(self.userId));
+
         return ok(profile.render(user.userName + "的资料详情", args));
     }
 

@@ -16,7 +16,7 @@
                 @* 登录时才显示 *@
                 @if(self != null) {
                     @* 其他用户页面 *@
-                    @if(self.userId != user.userId) {
+                    @if(!args("self").asInstanceOf[Boolean]) {
                         @* 已关注 *@
                         @if(args("followed").asInstanceOf[Boolean]) {
                             <button type="button" id="follow-btn" class="btn btn-info pull-right"

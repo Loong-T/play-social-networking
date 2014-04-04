@@ -1,5 +1,5 @@
 @(title: String, args: Map[String, Object])
-@import models.account.User; val user = if (args == null) null else args.get("user").asInstanceOf[User]; val self = if (args == null) null else args.get("loginUser").asInstanceOf[User]
+@import models.account.User; val user = if (args == null) null else args("user").asInstanceOf[User]; val self = if (args == null) null else args("loginUser").asInstanceOf[User]
 
 @main(title, "profile", args) {
     @includeFontAwesome()
@@ -14,63 +14,13 @@
             </div>
             <br><br><br>
             <div class="user-list row">
-                <div class="col-md-10 col-md-offset-1">
-                    <div class="user-row">
-                        <div class="pull-left">
-                            <img class="img-circle" src="@routes.Assets.at("images/default-user.jpg")" alt="User Pic">
-                        </div>
-                        <div class="pull-left user-info">
-                            <strong>Cyruxx</strong><br>
-                            <span class="text-muted">User level: Administrator</span>
-                        </div>
-                        <div class="pull-right buttons">
-                            <button class="btn btn-sm btn-primary" type="button" data-toggle="tooltip" data-original-title="发送消息">
-                                <span class="glyphicon glyphicon-envelope"></span>
-                            </button>
-                            <button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" data-original-title="移除关注">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-10 col-md-offset-1">
-                    <div class="user-row">
-                        <div class="pull-left">
-                            <img class="img-circle" src="@routes.Assets.at("images/default-user.jpg")" alt="User Pic">
-                        </div>
-                        <div class="pull-left user-info">
-                            <strong>Cyruxx</strong><br>
-                            <span class="text-muted">User level: Administrator</span>
-                        </div>
-                        <div class="pull-right buttons">
-                            <button class="btn btn-sm btn-primary" type="button" data-toggle="tooltip" data-original-title="发送消息">
-                                <span class="glyphicon glyphicon-envelope"></span>
-                            </button>
-                            <button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" data-original-title="移除关注">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-10 col-md-offset-1">
-                    <div class="user-row">
-                        <div class="pull-left">
-                            <img class="img-circle" src="@routes.Assets.at("images/default-user.jpg")" alt="User Pic">
-                        </div>
-                        <div class="pull-left user-info">
-                            <strong>Cyruxx</strong><br>
-                            <span class="text-muted">User level: Administrator</span>
-                        </div>
-                        <div class="pull-right buttons">
-                            <button class="btn btn-sm btn-primary" type="button" data-toggle="tooltip" data-original-title="发送消息">
-                                <span class="glyphicon glyphicon-envelope"></span>
-                            </button>
-                            <button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" data-original-title="移除关注">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                @if(args("followedUsers").asInstanceOf[List[User]].size <= 0) {
+                    <p style="text-align: center">无关注用户</p>
+                } else {
+                    @for(followedUser <- args("followedUsers").asInstanceOf[List[User]]) {
+                        @simpleUserItem(followedUser, args("self").asInstanceOf[Boolean])
+                    }
+                }
             </div>
         </div>
     </div>

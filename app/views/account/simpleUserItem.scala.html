@@ -1,4 +1,4 @@
-@(user: models.account.User)
+@(user: models.account.User, isSelf: Boolean)
 
 <div class="col-md-10 col-md-offset-1">
     <div class="user-row">
@@ -6,16 +6,17 @@
             <img class="img-circle" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像">
         </div>
         <div class="pull-left user-info">
-            <strong>@user.userName</strong><br>
+            <a href="@routes.Account.user(user.userId.toString)"><strong>@user.userName</strong><br></a>
             <span class="text-muted">用户简介</span>
         </div>
-        <div class="pull-right buttons">
-            <button class="btn btn-sm btn-primary" type="button" data-toggle="tooltip" data-original-title="发送消息">
-                <span class="glyphicon glyphicon-envelope"></span>
-            </button>
-            <button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" data-original-title="移除关注">
-                <span class="glyphicon glyphicon-remove"></span>
-            </button>
-        </div>
+        @*<div class="pull-right buttons @("hidden".when(!isSelf))">*@
+            @*<button class="btn btn-sm btn-primary" type="button" data-toggle="tooltip" data-original-title="发送消息">*@
+                @*<span class="glyphicon glyphicon-envelope"></span>*@
+            @*</button>*@
+            @*<button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" data-original-title="移除关注"*@
+                @*onclick="">*@
+                @*<span class="glyphicon glyphicon-remove"></span>*@
+            @*</button>*@
+        @*</div>*@
     </div>
 </div>
