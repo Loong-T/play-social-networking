@@ -1,8 +1,7 @@
 @(title: String, args: Map[String, Object])
 @import models.account.User;
 @import models.account.Gender;
-@import utils.Constant;
-@import java.util.Calendar; val user = if (args == null) null else args.get("user").asInstanceOf[User]; val self = if (args == null) null else args.get("loginUser").asInstanceOf[User]
+@import utils.Constant; val user = if (args == null) null else args.get("user").asInstanceOf[User]; val self = if (args == null) null else args.get("loginUser").asInstanceOf[User]
 
 @main(title, "profile", args) {
     @includeFontAwesome()
@@ -12,7 +11,18 @@
         <div class="col-md-10" id="main-content">
             <div class="panel">
                 <img class="pic img-circle" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像">
-                <div class="name"><small>@{user.userName}的资料</small></div>
+                <div class="name">
+                    <small>@{user.userName}的资料</small>
+                    <p class="text-muted pull-right">@if(user.description == null) {
+                        这人太懒了，什么描述也没有╮(╯﹏╰）╭
+                    } else {
+                        @if(user.description.length > 15) {
+                            @user.description.substring(0, 15)+"..."
+                        } else {
+                            @user.description
+                        }
+                    }</p>
+                </div>
                 @* 登录时才显示 *@
                 @if(self != null) {
                     @* 其他用户页面 *@
@@ -41,35 +51,17 @@
                 <div class="col-md-10 col-md-offset-1">
                     <table class="table table-striped table-responsive table-user-information">
                         <tbody>
-                            <tr>
-                                <td>电子邮件</td>
-                                <td>@user.email</td>
-                            </tr>
-                            <tr>
-                                <td>性别</td>
-                                <td>@user.gender match {
-                                    case Gender.MALE => {男}
-                                    case Gender.FEMALE => {女}
-                                    case _ => {其他}
-                                }
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>注册时间</td>
-                                <td>@user.signUp.format(Constant.DATE_FORMAT)</td>
-                            </tr>
-                            <tr>
-                                <td>最后登录</td>
-                                <td>@user.lastLogin.format(Constant.DATE_FORMAT)</td>
-                            </tr>
-                            <tr>
-                                <td>个人网站</td>
-                                <td>@user.website</td>
-                            </tr>
-                            <tr>
-                                <td>现在时间</td>
-                                <td>@Calendar.getInstance().getTime.format(Constant.DATE_FORMAT)</td>
-                            </tr>
+                            @profileRow("电子邮件", user.email)
+                            @profileRow("性别", user.gender match {
+                                                    case Gender.MALE => {"男"}
+                                                    case Gender.FEMALE => {"女"}
+                                                    case _ => {"其他"}
+                                })
+                            @profileRow("所在地", user.address)
+                            @profileRow("生日", if(user.birthday == null) null else user.birthday.format(Constant.BIRTHDAY_FORMAT))
+                            @profileRow("注册时间", user.signUp.format(Constant.DATE_FORMAT))
+                            @profileRow("最后登录", user.lastLogin.format(Constant.DATE_FORMAT))
+                            @profileRow("个人网站", user.website)
                         </tbody>
                     </table>
                 </div>

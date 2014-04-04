@@ -9,7 +9,7 @@ import com.avaje.ebean.annotation.EnumValue;
 public enum Gender {
     @EnumValue("male")
     MALE,
-    @EnumValue("famale")
+    @EnumValue("female")
     FEMALE,
     @EnumValue("other")
     OTHER

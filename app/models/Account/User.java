@@ -43,6 +43,16 @@ public class User extends Model {
     @Enumerated
     public Gender gender = Gender.OTHER;
 
+    @Column(name = "users_address")
+    public String address;
+
+    @Column(name = "users_birthday")
+    public Date birthday;
+
+    @Column(name = "users_description", length = 50)
+    @Constraints.MaxLength(value = 50)
+    public String description;
+
     @Column(name = "users_avatar")
     public String avatar;
 

@@ -1,0 +1,12 @@
+@(key: String, value: String)
+
+<tr>
+    <td>@key</td>
+    <td>
+        @if(value == null) {
+            <span class="text-muted">未设置</span>
+        } else {
+            @value
+        }
+    </td>
+</tr>
