@@ -120,7 +120,7 @@ public class Account extends Controller {
         }
 
         String website = data.get("website");
-        if (website != null && !"".equals(website.trim()) && !website.trim().endsWith("http://")) {
+        if (!"".equals(website.trim())) {
             user.website = website;
         }
 
@@ -130,18 +130,14 @@ public class Account extends Controller {
         }
 
         Date birthday;
+        String date = data.get("birthday");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        if (((birthday = df.parse(data.get("birthday")))) != null) {
+        if (!"".equals(date) && ((birthday = df.parse(date))) != null) {
             user.birthday = birthday;
         }
 
         user.save();
-//        StringBuilder sb = new StringBuilder();
-//        for (Map.Entry e : data.data().entrySet()) {
-//            sb.append(e.getKey()).append(":").append(e.getValue()).append("<br>");
-//        }
 
-//        return ok(message.render("测试", sb.toString(), args));
         return redirect("/user?uid=" + user.userId);
     }
 }
