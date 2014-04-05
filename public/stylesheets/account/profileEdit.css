@@ -54,3 +54,11 @@ li > a {
 .form-edit .form-control:focus {
   z-index: 2;
 }
+
+.form-edit input[type="date"] {
+  height: 36px;
+}
+
+.form-edit textarea {
+  width: 100%;
+}

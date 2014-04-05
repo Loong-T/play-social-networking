@@ -1,7 +1,10 @@
 package controllers;
 
+import com.avaje.ebean.bean.EntityBean;
+import models.account.Gender;
 import models.account.Relationship;
 import models.account.User;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -9,7 +12,12 @@ import views.html.account.profile;
 import views.html.account.profileEdit;
 import views.html.message;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Zheng Xuqiang on 2014/3/26 0026.
@@ -17,7 +25,7 @@ import java.util.HashMap;
  */
 public class Account extends Controller {
 
-    final static Form<User> userForm = Form.form(User.class);
+    static Form<User> profileForm = Form.form(User.class);
 
     /**
      * 获取指定Id用户的资料页面
@@ -80,6 +88,60 @@ public class Account extends Controller {
         args.put("user", self);
         args.put("self", self);
 
-        return ok(profileEdit.render("资料修改", args, userForm));
+        return ok(profileEdit.render("资料修改", args, profileForm.fill(self)));
+    }
+
+    /**
+     * 将提交的用户信息进行保存
+     * TODO 对各信息的检查
+     */
+    public static Result submit() throws ParseException {
+        DynamicForm data = Form.form().bindFromRequest();
+        User user = getLoginUser();
+
+        if (!data.get("userId").equals(user.userId.toString())) {
+            return redirect("/login");
+        }
+
+        HashMap<String, Object> args = new HashMap<>();
+        args.put("self", user);
+        args.put("user", user);
+
+        switch (data.get("gender")) {
+            case "male":
+                user.gender = Gender.MALE;
+                break;
+            case "female":
+                user.gender = Gender.FEMALE;
+                break;
+            default:
+                user.gender = Gender.OTHER;
+                break;
+        }
+
+        String website = data.get("website");
+        if (website != null && !"".equals(website.trim()) && !website.trim().endsWith("http://")) {
+            user.website = website;
+        }
+
+        String description = data.get("description");
+        if (description.length() < 50) {
+            user.description = description;
+        }
+
+        Date birthday;
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        if (((birthday = df.parse(data.get("birthday")))) != null) {
+            user.birthday = birthday;
+        }
+
+        user.save();
+//        StringBuilder sb = new StringBuilder();
+//        for (Map.Entry e : data.data().entrySet()) {
+//            sb.append(e.getKey()).append(":").append(e.getValue()).append("<br>");
+//        }
+
+//        return ok(message.render("测试", sb.toString(), args));
+        return redirect("/user?uid=" + user.userId);
     }
 }

@@ -1,4 +1,5 @@
-@(title: String, args: Map[String, Object], form: Form[models.account.User])
+@(title: String, args: Map[String, Object], profileForm: Form[models.account.User])
+@import helper._
 @import models.account.User; val user = if (args == null) null else args.get("user").asInstanceOf[User]
 
 @main(title, "profile", args) {
@@ -12,33 +13,48 @@
             <br><br><br>
             <div class="form-container row">
                 <div class="col-md-10 col-md-offset-1">
-                    <form class="form-edit form-horizontal" role="form">
+                    @form(action = routes.Account.submit(), 'class -> "form-edit form-horizontal", 'role -> "form") {
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputGender">性别</label>
+                            <div class="col-sm-2">
+                                <select class="form-control" name="gender" id="inputGender">
+                                    <option value="male">男</option>
+                                    <option value="female">女</option>
+                                    <option value="other">其他</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="inputAddr" class="col-sm-2 control-label">位置</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="inputAddr">
+                            <div class="col-sm-5">
+                                <input type="text" name="address" class="form-control" id="inputAddr">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputDate" class="col-sm-2 control-label">生日</label>
-                            <div class="col-sm-10">
-                                <input type="date" id="inputDate" class="form-control">
+                            <div class="col-sm-4">
+                                <input type="date" name="birthday" id="inputDate" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputDesc" class="col-sm-2 control-label">描述</label>
+                            <label for="inputSite" class="col-sm-2 control-label">个人网站</label>
                             <div class="col-sm-10">
-                                <label>
-                                    <textarea class="form-control" rows="3" id="inputDesc"></textarea>
-                                </label>
+                                <input type="url" name="website" class="form-control" id="inputSite" value="http://">
                             </div>
                         </div>
                         <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">保存</button>
-                                </div>
+                            <label for="inputDesc" class="col-sm-2 control-label">个人描述</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="description" rows="3" id="inputDesc" placeholder="50字以内简介"></textarea>
                             </div>
-                    </form>
+                        </div>
+                        <div class="form-group text-center">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <input type="submit" class="btn btn-info" value="保存"/>
+                            </div>
+                        </div>
+                        <input name="userId" type="hidden" value="@user.userId"/>
+                    }
                 </div>
             </div>
         </div>
