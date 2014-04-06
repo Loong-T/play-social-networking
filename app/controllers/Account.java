@@ -1,6 +1,5 @@
 package controllers;
 
-import com.avaje.ebean.bean.EntityBean;
 import models.account.Gender;
 import models.account.Relationship;
 import models.account.User;
@@ -17,7 +16,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Zheng Xuqiang on 2014/3/26 0026.
@@ -29,6 +27,7 @@ public class Account extends Controller {
 
     /**
      * 获取指定Id用户的资料页面
+     *
      * @param uid 指定用户Id
      */
     public static Result user(String uid) {

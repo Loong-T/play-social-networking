@@ -2,16 +2,16 @@ package controllers;
 
 import com.typesafe.plugin.MailerAPI;
 import com.typesafe.plugin.MailerPlugin;
-import utils.Constant;
 import models.account.User;
 import org.apache.commons.validator.routines.EmailValidator;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import utils.Constant;
 import utils.Crypt;
 import views.html.account.activation;
-import views.html.account.signup;
 import views.html.account.sendEmail;
+import views.html.account.signup;
 import views.html.error.error;
 
 import java.util.HashMap;
