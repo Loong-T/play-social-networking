@@ -10,13 +10,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="@routes.Application.index">Social-Network</a>
+            <a class="navbar-brand" href="@routes.Application.index"  style="margin-right: 45px">社交网站</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="@("active".when(nav == "home"))"><a href="@routes.Application.index">主页</a></li>
-                <li class="@("active".when(nav == "about"))"><a href="#about">关于</a></li>
-                <li class="@("active".when(nav == "contact"))"><a href="#contact">联系</a></li>
+                <li class="@("active".when(nav == "home"))">
+                    <a href="@routes.Application.index"><span class="glyphicon glyphicon-home"></span> 主页</a>
+                </li>
+                @*<li class="@("active".when(nav == "about"))"><a href="#about">关于</a></li>*@
+                @*<li class="@("active".when(nav == "contact"))"><a href="#contact">联系</a></li>*@
             </ul>
             @if(loginUser == null) {
                 <p class="navbar-text navbar-right"><a href="@routes.SignUp.blank()">注册</a></p>

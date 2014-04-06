@@ -7,6 +7,7 @@ import utils.Crypt;
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Zheng Xuqiang on 14-3-15.
@@ -80,8 +81,21 @@ public class User extends Model {
     @Column(name = "users_notescheck", nullable = false)
     public Date notesCheck;
 
-    @Column(name = "user_activated", nullable = false)
+    @Column(name = "users_activated", nullable = false)
     public Boolean activated = false;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fromUser")
+    public List<Relationship> followUsers;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "toUser")
+    public List<Relationship> followers;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+    public List<Post> posts;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+    public List<Comment> comments;
+
 
     public User() {
         Date now = Calendar.getInstance().getTime();

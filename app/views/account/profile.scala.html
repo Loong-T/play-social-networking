@@ -7,13 +7,13 @@
     @includeFontAwesome()
     <link href="@routes.Assets.at("stylesheets/account/profile.css")" rel="stylesheet">
     <div class="row jumbotron">
-        @userNav("profile", user)
+        @userNav("profile", user, self)
         <div class="col-md-10" id="main-content">
             <div class="panel">
                 <img class="pic img-circle" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像">
                 <div class="name">
                     <small>@{user.userName} 的资料</small>
-                    <p class="text-muted">@if(user.description == null) {
+                    <p class="text-muted">@if(user.description == null || user.description == "") {
                         这人太懒了，什么描述也没有 ╮（╯﹏╰）╭
                     } else {
                         @if(user.description.length > 15) {

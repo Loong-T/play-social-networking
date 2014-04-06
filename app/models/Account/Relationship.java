@@ -6,6 +6,7 @@ import play.db.ebean.Model;
 import javax.persistence.*;
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Zheng Xuqiang on 14-3-17.
@@ -20,25 +21,29 @@ public class Relationship extends Model {
     @Column(name = "rs_id")
     public Long relationshipId;
 
-    @JoinColumn(name = "rs_fromuser", referencedColumnName = "users_id",
-            nullable = false, updatable=false)
-    @OneToOne(optional = false, targetEntity = User.class)
+//    @JoinColumn(name = "rs_fromuser", referencedColumnName = "users_id",
+//            nullable = false, updatable=false)
+//    @OneToOne(optional = false, targetEntity = User.class)
+
+    @JoinColumn(name = "rs_fromuser", nullable = false, updatable = false)
+    @ManyToOne(optional = false)
     public User fromUser;
 
-    @JoinColumn(name = "rs_touser", referencedColumnName = "users_id",
-            nullable = false, updatable=false)
-    @OneToOne(optional = false, targetEntity = User.class)
+//    @JoinColumn(name = "rs_touser", referencedColumnName = "users_id",
+//            nullable = false, updatable=false)
+//    @OneToOne(optional = false, targetEntity = User.class)
+
+    @JoinColumn(name = "rs_touser", nullable = false, updatable = false)
+    @ManyToOne(optional = false)
     public User toUser;
 
     @Column(name = "rs_makedate", nullable = false)
     public Date makeDate;
 
-    @Column(name = "rs_accepted", nullable = false)
-    public Boolean accepted = false;
-
     public static Finder<Long, Relationship> finder
             = new Finder<>(Long.class, Relationship.class);
 
+    @Transient
     public static Relationship getRelationshipByUser(Long fromUser, Long toUser) {
         return Ebean.find(Relationship.class).where()
                 .eq("rs_fromuser", fromUser)

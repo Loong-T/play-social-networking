@@ -7,7 +7,7 @@
         </div>
         <div class="pull-left user-info">
             <a href="@routes.Account.user(user.userId.toString)"><strong>@user.userName</strong><br></a>
-            <span class="text-muted">@if(user.description == null) {
+            <span class="text-muted">@if(user.description == null || user.description == "") {
                 这人太懒了，什么描述也没有 ╮（╯﹏╰）╭
             } else {
                 @if(user.description.length > 15) {

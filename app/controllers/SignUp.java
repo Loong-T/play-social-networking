@@ -10,9 +10,9 @@ import play.mvc.Result;
 import utils.Constant;
 import utils.Crypt;
 import views.html.account.activation;
-import views.html.account.sendEmail;
 import views.html.account.signup;
 import views.html.error.error;
+import views.html.message;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -114,7 +114,8 @@ public class SignUp extends Controller {
         }
 
         return ok(
-                sendEmail.render("还差一点点就完成了", null)
+                message.render("还差一点点就完成了",
+                        "现在后台系统已经给您的注册邮箱发出了一封激活邮件，请登录您的邮箱查看并激活您的账户。", null)
         );
     }
 
