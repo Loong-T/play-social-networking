@@ -72,13 +72,7 @@ public class Follow extends Controller {
         }
 
         args.put("user", user);
-        args.put("loginUser", self);
-        if (self != null) {
-            args.put("self", user.userId.equals(self.userId));
-        }
-        else {
-            args.put("self", false);
-        }
+        args.put("self", self);
 
         List<User> users = getFollowedUsers(user);
         args.put("followedUsers", users);

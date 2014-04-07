@@ -24,7 +24,7 @@ public class Login extends Controller {
     public static Result submit() {
         HashMap<String, Object> args = new HashMap<>();
         if (checkLogin()) {
-            args.put("loginUser", Account.getLoginUser());
+            args.put("self", Account.getLoginUser());
             return badRequest("您的账户已经登录，无需重复登录");
         }
 

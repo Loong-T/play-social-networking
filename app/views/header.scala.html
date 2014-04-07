@@ -1,5 +1,5 @@
 @(nav: String, args: Map[String, Object])
-@import models.account.User; val loginUser = if (args == null) null else args.get("loginUser").asInstanceOf[User]
+@import models.account.User; val loginUser = if (args == null) null else args.get("self").asInstanceOf[User]
 
 <div class="navbar navbar-inverse navbar-fixed-top nav-justified" role="navigation">
     <div class="container">
@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="@routes.Application.index"  style="margin-right: 45px">社交网站</a>
+            <a class="navbar-brand" href="@routes.Application.index"  style="margin-right: 40px">社交网站</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">

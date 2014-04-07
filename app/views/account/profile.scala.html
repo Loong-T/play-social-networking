@@ -1,13 +1,12 @@
 @(title: String, args: Map[String, Object])
 @import models.account.User;
 @import models.account.Gender;
-@import utils.Constant; val user = if (args == null) null else args.get("user").asInstanceOf[User]; val self = if (args == null) null else args.get("loginUser").asInstanceOf[User]
+@import utils.Constant; val user = if (args == null) null else args.get("user").asInstanceOf[User]; val self = if (args == null) null else args.get("self").asInstanceOf[User]
 
 @main(title, "profile", args) {
     @includeFontAwesome()
     <link href="@routes.Assets.at("stylesheets/account/profile.css")" rel="stylesheet">
     <div class="row jumbotron">
-        @userNav("profile", user, self)
         <div class="col-md-10" id="main-content">
             <div class="panel">
                 <img class="pic img-circle" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像">
@@ -26,7 +25,7 @@
                 @* 登录时才显示 *@
                 @if(self != null) {
                     @* 其他用户页面 *@
-                    @if(!args("self").asInstanceOf[Boolean]) {
+                    @if(!self.userId.equals(user.userId)) {
                         @* 已关注 *@
                         @if(args("followed").asInstanceOf[Boolean]) {
                             <button type="button" id="follow-btn" class="btn btn-info pull-right"
@@ -67,6 +66,7 @@
                 </div>
             </div>
         </div>
+        @userNav("profile", user, self)
     </div>
     @includeCommonJS()
     <script src="@routes.Assets.at("javascripts/account/profile.js")"></script>

@@ -1,0 +1,13 @@
+li > a {
+  color: #262626;
+}
+
+.maincontent {
+  border-radius: 10px;
+  padding: 12px 8px;
+  background-color: #fafafa;
+}
+
+.textarea {
+  resize: none;
+}

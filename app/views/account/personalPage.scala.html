@@ -1,0 +1,31 @@
+@(title: String, args: Map[String, Object])
+@import models.account.User; val user = if(args == null) null else args("user").asInstanceOf[User]; val self = if(args == null) null else args("self").asInstanceOf[User]
+
+@main(title, "personal", args) {
+    @includeFontAwesome()
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/account/personalPage.css")"/>
+    <div class="row jumbotron">
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 maincontent">
+                    <div class="panel panel-info">
+                        <div class="panel-body">
+                            <form accept-charset="UTF-8" action="" method="POST">
+                                <textarea class="form-control counted" name="content" placeholder="说点什么吧？" rows="5" style="margin-bottom:10px;"></textarea>
+                                <input type="file" name="pic" class="pull-left" data-filename-placement="inside" title="<span class='glyphicon glyphicon-picture'></span> 添加照片">
+                                <button class="btn btn-info pull-right" type="submit">发布</button>
+                                <p class="pull-right" id="counter" style="margin-right: 14px;">140</p>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        @userNav("personal", user, self)
+    </div>
+    @includeCommonJS()
+    <script src="@routes.Assets.at("javascripts/bootstrap.file-input.js")"></script>
+    <script src="@routes.Assets.at("javascripts/account/personalPage.js")"></script>
+}

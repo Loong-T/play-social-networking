@@ -16,6 +16,7 @@ Thanks to:
 > * [FontAwesome](http://fortawesome.github.io/Font-Awesome/)
 > * [Bootsnipp](http://bootsnipp.com/)
 > * [jQuery](http://jquery.com/)
+> * [bootstrap-file-input](https://github.com/grevory/bootstrap-file-input)
 
 -------------
 
@@ -32,4 +33,5 @@ Thanks to:
 > * [FontAwesome](http://fortawesome.github.io/Font-Awesome/)
 > * [Bootsnipp](http://bootsnipp.com/)
 > * [jQuery](http://jquery.com/)
+> * [bootstrap-file-input](https://github.com/grevory/bootstrap-file-input)
 

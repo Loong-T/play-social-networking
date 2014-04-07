@@ -1,10 +1,10 @@
 @(nav: String, user: models.account.User, self: models.account.User)
 
-<div class="col-md-2">
+<div class="col-md-2 text-center">
     <ul class="nav nav-pills nav-stacked">
         @if(self.userId.equals(user.userId)) {
-            <li class="@("active".when(nav == "info-stream"))">
-                <a href="#"><i class="fa fa-cloud fa-lg"></i> 动态</a>
+            <li class="@("active".when(nav == "personal"))">
+                <a href="@routes.Account.personalPage"><i class="fa fa-cloud fa-lg"></i> 动态</a>
             </li>
         }
         <li class="@("active".when(nav == "posts"))">

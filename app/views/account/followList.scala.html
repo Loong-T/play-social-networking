@@ -1,12 +1,10 @@
 @(title: String, args: Map[String, Object])
-@import models.account.User; val user = if (args == null) null else args("user").asInstanceOf[User]; val self = if (args == null) null else args("loginUser").asInstanceOf[User]
+@import models.account.User; val user = if (args == null) null else args("user").asInstanceOf[User]; val self = if (args == null) null else args("self").asInstanceOf[User]
 
 @main(title, "follow-list", args) {
     @includeFontAwesome()
     <link rel="stylesheet" href="@routes.Assets.at("stylesheets/account/followList.css")"/>
-    <br><br>
     <div class="row jumbotron">
-        @userNav("follow-list", user, self)
         <div class="col-md-10">
             @userBanner(user, "关注")
             <br><br><br>
@@ -15,11 +13,12 @@
                     <p style="text-align: center">无关注用户</p>
                 } else {
                     @for(followedUser <- args("followedUsers").asInstanceOf[List[User]]) {
-                        @simpleUserItem(followedUser, args("self").asInstanceOf[Boolean])
+                        @simpleUserItem(followedUser, self != null && user != null && self.userId.equals(user.userId))
                     }
                 }
             </div>
         </div>
+        @userNav("follow-list", user, self)
     </div>
     @includeCommonJS()
     <script src="@routes.Assets.at("javascripts/account/followList.js")"></script>

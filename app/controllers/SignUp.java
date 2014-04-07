@@ -92,7 +92,7 @@ public class SignUp extends Controller {
      */
     public static Result sendEmail() {
         HashMap<String, Object> args = new HashMap<>();
-        args.put("loginUser", Account.getLoginUser());
+        args.put("self", Account.getLoginUser());
         User user = User.finder.where().eq("userId", session("uid")).findUnique();
         String actiAddr = Constant.BASE_URL + "/activation?uid="
                 + user.userId + "&hash=" + Crypt.bytes2Hex(Crypt.md5(user.salt));

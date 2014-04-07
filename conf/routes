@@ -3,32 +3,35 @@
 # ~~~~
 
 # Home page
-GET         /                    controllers.Application.index()
-GET         /test                controllers.Application.test()
+GET         /                      controllers.Application.index()
+GET         /test                  controllers.Application.test()
 
 # SignUp
-GET         /signup              controllers.SignUp.blank()
-POST        /signup              controllers.SignUp.submit()
-GET         /emailcheck          controllers.SignUp.checkEmail(email)
-GET         /namecheck           controllers.SignUp.checkUserName(username)
-GET         /sendemail           controllers.SignUp.sendEmail()
-GET         /activation          controllers.SignUp.activation(uid, hash)
+GET         /signup                controllers.SignUp.blank()
+POST        /signup                controllers.SignUp.submit()
+GET         /emailcheck            controllers.SignUp.checkEmail(email)
+GET         /namecheck             controllers.SignUp.checkUserName(username)
+GET         /sendemail             controllers.SignUp.sendEmail()
+GET         /activation            controllers.SignUp.activation(uid, hash)
 
 # Login
-GET         /login               controllers.Login.blank()
-POST        /login               controllers.Login.submit()
-GET         /logout              controllers.Login.logout()
+GET         /login                 controllers.Login.blank()
+POST        /login                 controllers.Login.submit()
+GET         /logout                controllers.Login.logout()
 
 # Account
-GET         /user                controllers.Account.user(uid)
-GET         /forgetpwd           controllers.Account.forgetPwd()
-GET         /edit-profile        controllers.Account.edit(uid)
-POST        /edit-profile        controllers.Account.submit()
+GET         /user                  controllers.Account.user(uid)
+GET         /forgetpwd             controllers.Account.forgetPwd()
+GET         /edit-profile          controllers.Account.edit(uid)
+POST        /edit-profile          controllers.Account.submit()
+GET         /personal-page         controllers.Account.personalPage()
 
 # Follow
-GET         /follow              controllers.Follow.addFollow(uid)
-GET         /unfollow            controllers.Follow.cancleFollow(uid)
-GET         /follow-list         controllers.Follow.list(uid)
+GET         /follow                controllers.Follow.addFollow(uid)
+GET         /unfollow              controllers.Follow.cancleFollow(uid)
+GET         /following-list        controllers.Follow.list(uid)
+
+# Post
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file        controllers.Assets.at(path="/public", file)
+GET         /assets/*file          controllers.Assets.at(path="/public", file)

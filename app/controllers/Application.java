@@ -11,7 +11,7 @@ public class Application extends Controller {
 
     public static Result index() {
         args.clear();
-        args.put("loginUser", Account.getLoginUser());
+        args.put("self", Account.getLoginUser());
         return ok(index.render("主页", args));
     }
 

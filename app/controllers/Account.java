@@ -7,6 +7,7 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.account.personalPage;
 import views.html.account.profile;
 import views.html.account.profileEdit;
 import views.html.message;
@@ -23,6 +24,7 @@ import java.util.HashMap;
  */
 public class Account extends Controller {
 
+    static HashMap<String, Object> args = new HashMap<>();
     static Form<User> profileForm = Form.form(User.class);
 
     /**
@@ -34,18 +36,17 @@ public class Account extends Controller {
         Long id = Long.parseLong(uid);
         User user = User.getUserById(id);
         User self = Account.getLoginUser();
-        HashMap<String, Object> args = new HashMap<>();
+        args.clear();
 
         if (user == null) {
             return badRequest(message.render("不存在的用户", "该用户不存在", args));
         }
 
-        args.put("loginUser", self);
         args.put("user", user);
+        args.put("self", self);
 
-        // 当用户没有登录时，下面两项被设置为false
+        // 当用户没有登录时，设置为false
         args.put("followed", self != null && (Relationship.getRelationshipByUser(self.userId, user.userId) != null));
-        args.put("self", self != null && user.userId.equals(self.userId));
 
         return ok(profile.render(user.userName + "的资料详情", args));
     }
@@ -79,7 +80,7 @@ public class Account extends Controller {
     public static Result edit(String uid) {
         Long id = Long.parseLong(uid);
         User self = getLoginUser();
-        HashMap<String, Object> args = new HashMap<>();
+        args.clear();
 
         if (!id.equals(self.userId))
             return redirect("/login");
@@ -102,7 +103,7 @@ public class Account extends Controller {
             return redirect("/login");
         }
 
-        HashMap<String, Object> args = new HashMap<>();
+        args.clear();
         args.put("self", user);
         args.put("user", user);
 
@@ -138,5 +139,17 @@ public class Account extends Controller {
         user.save();
 
         return redirect("/user?uid=" + user.userId);
+    }
+
+    /**
+     * 个人页面，可浏览关注用户发布的信息
+     */
+    public static Result personalPage() {
+        User self = getLoginUser();
+        args.clear();
+        args.put("user", self);
+        args.put("self", self);
+
+        return ok(personalPage.render("个人主页", args));
     }
 }
