@@ -1,0 +1,17 @@
+@(author: models.account.User, post: models.account.Post)
+
+<li class="stream-item" id="stream-item-post-id">
+    <div class="post">
+        <div class="post-header">
+            <a href="@routes.Account.user(author.userId.toString)" class="user-account">
+                <img class="post-user-avatar pull-left" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像"/>
+                <strong class="user-name">@author.userName</strong>
+            </a>
+            <span class="text-muted">发布时间</span>
+        </div>
+        <p class="post-content">发布的内容。Key Sounds Label （キー・サウンズ・レーベル） は、ゲームブランド・Keyの自社レーベル。KSL の略称が用いられることもある。型番は" KSLA- " から始まる。</p>
+        <div class="post-img">
+            <img class="img-rounded" src="@routes.Assets.at("images/default-user-cover.jpg")"/>
+        </div>
+    </div>
+</li>

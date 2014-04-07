@@ -2,12 +2,56 @@ li > a {
   color: #262626;
 }
 
-.maincontent {
+ol.stream-items {
+  list-style: none;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+li.stream-item {
+  padding-bottom: 6px;
+  margin: 12px auto;
+}
+
+ol.stream-items > li.stream-item {
+  border-bottom: solid 2px #91a7b7;
+}
+
+ol.stream-items > li.stream-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.post-header img {
+  width: 48px;
+  border-radius: 6px;
+}
+
+.post-header .user-name {
+  margin: auto 8px;
+}
+
+p.post-content {
+  margin: 6px 10px 6px 56px;
+  font-size: 18px;
+}
+
+.main-content {
   border-radius: 10px;
   padding: 12px 8px;
   background-color: #fafafa;
 }
 
-.textarea {
+.post-img {
+  margin: 6px 12px 6px 56px;
+}
+
+.post-img img {
+  width: 100%;
+  border: solid 3px silver;
+}
+
+textarea.counted {
   resize: none;
+  margin-bottom: 14px;
 }

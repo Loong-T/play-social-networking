@@ -103,10 +103,6 @@ public class Account extends Controller {
             return redirect("/login");
         }
 
-        args.clear();
-        args.put("self", user);
-        args.put("user", user);
-
         switch (data.get("gender")) {
             case "male":
                 user.gender = Gender.MALE;
