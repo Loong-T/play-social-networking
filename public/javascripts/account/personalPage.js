@@ -25,23 +25,31 @@ $('#post-form').on('submit', function(event) {
   xhr.open('POST', '/new-post');
 
   xhr.onreadystatechange = function() {
+
     if (xhr.readyState == 4) {
       submitBtn.removeAttr("disabled");
       submitBtn.html('发布');
 
       if (xhr.status == 200) {
         // OK
-        postContent.val('');
-        picName.addClass('glyphicon glyphicon-picture');
-        picName.html(' 添加照片');
-        alert(xhr.responseText);
+        location.reload();
+
+          // TODO 当使用Ajax动态改变当前页面时，使用下面注释掉的代码，现在发布成功后刷新页面
+//        postContent.val('');
+//        picName.addClass('glyphicon glyphicon-picture');
+//        picName.html(' 添加照片');
       }
       else {
-        alert('失败');
+        // 出了问题
+        $('#error-modal-body').append('<p>' + xhr.responseText + '</p>');
+        $('#error-modal').modal();
+        setInterval(function() {progressDiv.addClass('hidden')}, 800);
       }
-
+        // TODO 当使用Ajax动态改变当前页面时，使用下面注释掉的代码，现在发布成功后刷新页面
 //      setInterval(function() {progressDiv.addClass('hidden')}, 800);
-    }
+//      // 将选择的文件重置为空
+//      postPic.replaceWith(postPic = postPic.clone(true));
+    } // end if (xhr.readyState == 4)
     else {
       submitBtn.attr('disabled', 'disabled');
       submitBtn.html("<span class='glyphicon glyphicon-repeat spin-icon'></span>");

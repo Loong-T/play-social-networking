@@ -1,4 +1,5 @@
 @(author: models.account.User, post: models.account.Post)
+@import utils.Constant; val picPath = Constant.ASSET_UPLOAD_FILE_PATH + author.userId.toString + "/" + Constant.USER_IMAGES_PATH + post.pic
 
 <li class="stream-item" id="stream-item-post-id">
     <div class="post">
@@ -7,11 +8,16 @@
                 <img class="post-user-avatar pull-left" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像"/>
                 <strong class="user-name">@author.userName</strong>
             </a>
-            <span class="text-muted">发布时间</span>
+            <span class="text-muted">@{post.postTime.format(Constant.POST_TIME_FORMAT)}</span>
         </div>
-        <p class="post-content">发布的内容。Key Sounds Label （キー・サウンズ・レーベル） は、ゲームブランド・Keyの自社レーベル。KSL の略称が用いられることもある。型番は" KSLA- " から始まる。</p>
-        <div class="post-img">
-            <img class="img-rounded" src="@routes.Assets.at("images/default-user-cover.jpg")"/>
-        </div>
+        @if(post.content != null && !"".equals(post.content)) {
+            <p class="post-content">@post.content</p>
+        }
+        @if(post.pic != null && !"".equals(post.pic)) {
+            <div class="post-img">
+                <img class="img-rounded"
+                    src="@routes.Assets.at(picPath)"/>
+            </div>
+        }
     </div>
 </li>

@@ -1,8 +1,6 @@
 package controllers;
 
-import models.account.Gender;
-import models.account.Relationship;
-import models.account.User;
+import models.account.*;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
@@ -145,6 +143,7 @@ public class Account extends Controller {
         args.clear();
         args.put("user", self);
         args.put("self", self);
+        args.put("posts", models.account.Post.finder.orderBy().desc("postTime").findList());
 
         return ok(personalPage.render("个人主页", args));
     }
