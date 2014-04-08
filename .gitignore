@@ -1,4 +1,5 @@
 conf/evolutions
+files
 logs
 project/project
 project/target

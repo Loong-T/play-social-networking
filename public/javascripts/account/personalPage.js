@@ -35,7 +35,7 @@ $('#post-form').on('submit', function(event) {
         picName.addClass('glyphicon glyphicon-picture');
         picName.html(' 添加照片');
         alert(xhr.responseText);
-        setInterval(function() {progressDiv.addClass('hidden')}, 2000);
+        setInterval(function() {progressDiv.addClass('hidden')}, 800);
       }
       else {
         alert('失败');
