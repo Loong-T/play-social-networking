@@ -1,5 +1,10 @@
 package utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
@@ -64,5 +69,41 @@ public class Crypt {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * 根据传入的算法名来Hash文件
+     * TODO 就算是选用MD5也耗时太长
+     * @param file 需要Hash的字符串
+     * @param algorithm 加密算法
+     */
+    public static byte[] digest(File file, String algorithm) {
+        MessageDigest md = null;
+
+        try {
+            md = MessageDigest.getInstance(algorithm);
+            FileInputStream fis = new FileInputStream(file);
+            DigestInputStream dis = new DigestInputStream(fis, md);
+            while(dis.read() != -1) ; // empty
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        assert md != null;
+        return md.digest();
+    }
+
+    /**
+     * 返回文件的MD5值
+     * @param file digest的文件
+     * @return 文件的MD5值
+     */
+    public static String digestFile(File file) {
+        return bytes2Hex(digest(file, "MD5"));
     }
 }
