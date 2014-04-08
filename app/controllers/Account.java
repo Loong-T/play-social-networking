@@ -8,6 +8,7 @@ import play.mvc.Result;
 import views.html.account.personalPage;
 import views.html.account.profile;
 import views.html.account.profileEdit;
+import views.html.account.userPosts;
 import views.html.message;
 
 import java.text.DateFormat;
@@ -30,7 +31,7 @@ public class Account extends Controller {
      *
      * @param uid 指定用户Id
      */
-    public static Result user(String uid) {
+    public static Result profile(String uid) {
         Long id = Long.parseLong(uid);
         User user = User.getUserById(id);
         User self = Account.getLoginUser();
@@ -47,6 +48,29 @@ public class Account extends Controller {
         args.put("followed", self != null && (Relationship.getRelationshipByUser(self.userId, user.userId) != null));
 
         return ok(profile.render(user.userName + "的资料详情", args));
+    }
+
+    /**
+     * 获取指定Id用户的主页面
+     *
+     * @param uid 指定用户Id
+     */
+    public static Result user(String uid) {
+        Long id = Long.parseLong(uid);
+        User user = User.getUserById(id);
+        User self = Account.getLoginUser();
+        args.clear();
+
+        if (user == null) {
+            return badRequest(message.render("不存在的用户", "该用户不存在", args));
+        }
+
+        args.put("user", user);
+        args.put("self", self);
+        // TODO 按需拉取
+        args.put("posts", Post.finder.orderBy().desc("postTime").findList());
+
+        return ok(userPosts.render(user.userName + "的信息", args));
     }
 
     /**
@@ -88,6 +112,7 @@ public class Account extends Controller {
 
         return ok(profileEdit.render("资料修改", args, profileForm.fill(self)));
     }
+
 
     /**
      * 将提交的用户信息进行保存
@@ -132,7 +157,7 @@ public class Account extends Controller {
 
         user.save();
 
-        return redirect("/user?uid=" + user.userId);
+        return redirect("/profile?uid=" + user.userId);
     }
 
     /**
@@ -143,8 +168,10 @@ public class Account extends Controller {
         args.clear();
         args.put("user", self);
         args.put("self", self);
-        args.put("posts", models.account.Post.finder.orderBy().desc("postTime").findList());
+        // TODO 按需拉取
+        args.put("posts", Post.finder.orderBy().desc("postTime").findList());
 
         return ok(personalPage.render("个人主页", args));
     }
+
 }

@@ -1,5 +1,6 @@
 package controllers;
 
+import models.account.Post;
 import models.account.User;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -17,9 +18,9 @@ import java.util.Map;
 
 /**
  * Created by Zheng Xuqiang on 2014/4/7 0007.
- * 发布Post相关
+ * 发布消息相关
  */
-public class Post extends Controller {
+public class Message extends Controller {
 
     static Map<String, Object> args = new HashMap<>();
 
@@ -29,7 +30,7 @@ public class Post extends Controller {
             return badRequest("用户还未登录。");
         }
 
-        models.account.Post post = new models.account.Post();
+        Post post = new Post();
         post.author = self;
         Boolean validPost = false;
         Http.MultipartFormData body = request().body().asMultipartFormData();

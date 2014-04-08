@@ -28,7 +28,7 @@
                     <div class="stream-container">
                         <ol class="stream-items">
                             @for(post <- posts) {
-                                @streamItem(self, post)
+                                @streamItem(post.author, post)
                             }
                         </ol>
                     </div>

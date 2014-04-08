@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="@routes.Application.index"  style="margin-right: 40px">社交网站</a>
+            <a class="navbar-brand" href="@routes.Application.index"  style="margin-right: 24px">社交网站</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -30,10 +30,12 @@
                             <span class="glyphicon glyphicon-user" style="color : #2aabd2"></span>
                             @loginUser.userName <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="@routes.Account.user(loginUser.userId.toString)">账号详情</a></li>
-                            <li><a href="#">账号设置</a></li>
+                            <li><a href="@routes.Account.personalPage()">个人主页</a></li>
+                            <li><a href="@routes.Account.user(loginUser.userId.toString)">我的发言</a></li>
+                            <li><a href="@routes.Account.profile(loginUser.userId.toString)">我的详情</a></li>
+                            <li><a href="@routes.Follow.list(loginUser.userId.toString)">我的关注</a></li>
                             <li class="divider"></li>
-                            <li class="dropdown-header">Nav header</li>
+                            <li class="dropdown-header">其他</li>
                             <li><a href="@routes.Login.logout()">注销</a></li>
                         </ul>
                     </li>

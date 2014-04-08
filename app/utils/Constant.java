@@ -23,7 +23,7 @@ public class Constant {
     /**
      * Post时间格式
      */
-    public static final String POST_TIME_FORMAT = "M-d kk:mm";
+    public static final String POST_TIME_FORMAT = "M月d日 kk:mm";
 
     /**
      * 上传文件存储路径

@@ -8,10 +8,10 @@
             </li>
         }
         <li class="@("active".when(nav == "posts"))">
-            <a href="#"><i class="fa fa-comment fa-lg"></i> 发言</a>
+            <a href="@routes.Account.user(user.userId.toString)"><i class="fa fa-comment fa-lg"></i> 发言</a>
         </li>
         <li class="@("active".when(nav == "profile"))">
-            <a href="@routes.Account.user(user.userId.toString)"><i class="fa fa-book fa-lg"></i> 资料</a>
+            <a href="@routes.Account.profile(user.userId.toString)"><i class="fa fa-book fa-lg"></i> 资料</a>
         </li>
         <li class="@("active".when(nav == "follow-list"))">
             <a href="@routes.Follow.list(user.userId.toString)"><i class="fa fa-eye fa-lg"></i> 关注</a>

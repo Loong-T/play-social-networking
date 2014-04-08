@@ -21,6 +21,7 @@ GET         /logout                controllers.Login.logout()
 
 # Account
 GET         /user                  controllers.Account.user(uid)
+GET         /profile               controllers.Account.profile(uid)
 GET         /forgetpwd             controllers.Account.forgetPwd()
 GET         /edit-profile          controllers.Account.edit(uid)
 POST        /edit-profile          controllers.Account.submit()
@@ -32,7 +33,7 @@ GET         /unfollow              controllers.Follow.cancleFollow(uid)
 GET         /following-list        controllers.Follow.list(uid)
 
 # Post
-POST        /new-post                  controllers.Post.newPost
+POST        /new-post              controllers.Message.newPost
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file          controllers.Assets.at(path="/public", file)
