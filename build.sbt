@@ -14,7 +14,9 @@ libraryDependencies ++= Seq(
   // Commons Validator
   "commons-validator" % "commons-validator" % "1.4.0",
   // Emailer plugin
-  "com.typesafe" %% "play-plugins-mailer" % "2.1-RC2"
+  "com.typesafe" %% "play-plugins-mailer" % "2.1-RC2",
+  // Commons IO
+  "commons-io" % "commons-io" % "2.4"
 )
 
 play.Project.playJavaSettings

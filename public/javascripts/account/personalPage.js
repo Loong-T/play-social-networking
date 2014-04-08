@@ -6,6 +6,63 @@ $(document).ready(function () {
   $('input[type=file]').bootstrapFileInput();
 });
 
+$('#post-form').on('submit', function(event) {
+  event.preventDefault();
+  var formData = new FormData();
+  var postPic = $('#post-pic');
+  var picName = postPic.prev('span');
+  var postContent = $('#post-content');
+  var submitBtn = $('#post-submit');
+
+  submitBtn.attr('disabled', 'disabled');
+  submitBtn.html("<span class='glyphicon glyphicon-repeat spin-icon'></span>");
+
+  formData.append('content', postContent.val());
+  formData.append('pic', postPic[0].files[0]);
+
+  var xhr = new XMLHttpRequest();
+
+  xhr.open('POST', '/new-post');
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      submitBtn.removeAttr("disabled");
+      submitBtn.html('发布');
+
+      if (xhr.status == 200) {
+        // OK
+        postContent.val('');
+        picName.addClass('glyphicon glyphicon-picture');
+        picName.html(' 添加照片');
+        alert(xhr.responseText);
+        setInterval(function() {progressDiv.addClass('hidden')}, 2000);
+      }
+      else {
+        alert('失败');
+      }
+    }
+    else {
+      submitBtn.attr('disabled', 'disabled');
+      submitBtn.html("<span class='glyphicon glyphicon-repeat spin-icon'></span>");
+    }
+  };
+
+  var progressDiv = $('.progress');
+  var progressBar = $('.progress-bar');
+  // progress回调
+  xhr.upload.onprogress = function(event) {
+    var progress;
+    if (event.lengthComputable) {
+      progress = Math.floor(event.loaded / event.total * 100 | 0);
+      progressBar.attr('aria-valuenow', progress);
+      progressBar.css('width', progress + '%');
+    }
+  };
+
+  progressDiv.removeClass('hidden');
+  xhr.send(formData);
+});
+
 /**
  *
  * jquery.charcounter.js version 1.2
