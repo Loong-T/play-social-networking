@@ -15,8 +15,10 @@
         }
         @if(post.pic != null && !"".equals(post.pic)) {
             <div class="post-img">
-                <img class="img-rounded"
-                    src="@routes.Assets.at(picPath)"/>
+                <a data-img-url="@routes.Assets.at(picPath)" data-toggle="modal" data-target="#imgModal">
+                    <img class="img-rounded"
+                        src="@routes.Assets.at(picPath)"/>
+                </a>
             </div>
         }
     </div>

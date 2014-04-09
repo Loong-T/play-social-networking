@@ -58,6 +58,10 @@ p.post-content {
   text-align: center;
 }
 
+.post-img > a:hover {
+  cursor: pointer;
+}
+
 .post-img img {
   max-height: 340px;
   max-width: 100%;
@@ -67,4 +71,9 @@ p.post-content {
 textarea.counted {
   resize: none;
   margin-bottom: 14px;
+}
+
+#modalImg {
+  max-width: 100%;
+  max-height: 100%;
 }
