@@ -1,6 +1,11 @@
 package controllers;
 
-import models.account.*;
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Expr;
+import models.account.Gender;
+import models.account.Post;
+import models.account.Relationship;
+import models.account.User;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
@@ -16,6 +21,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Zheng Xuqiang on 2014/3/26 0026.
@@ -67,8 +73,7 @@ public class Account extends Controller {
 
         args.put("user", user);
         args.put("self", self);
-        // TODO 按需拉取
-        args.put("posts", Post.finder.orderBy().desc("postTime").findList());
+        args.put("posts", Post.finder.where().eq("author", user).orderBy().desc("postTime").findList());
 
         return ok(userPosts.render(user.userName + "的信息", args));
     }
@@ -91,7 +96,7 @@ public class Account extends Controller {
         return null;
     }
 
-    // TODO
+    // TODO 忘记密码功能
     public static Result forgetPwd() {
         return play.mvc.Results.TODO;
     }
@@ -168,8 +173,17 @@ public class Account extends Controller {
         args.clear();
         args.put("user", self);
         args.put("self", self);
-        // TODO 按需拉取
-        args.put("posts", Post.finder.orderBy().desc("postTime").findList());
+
+        List<Post> posts = Ebean.find(Post.class)
+                .fetch("author.followers")
+                .where()
+                    .or(
+                            Expr.eq("author.followers.fromUser", self),
+                            Expr.eq("author", self)
+                    )
+                    .orderBy().desc("postTime")
+                .findList();
+        args.put("posts", posts);
 
         return ok(personalPage.render("个人主页", args));
     }

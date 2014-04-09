@@ -50,6 +50,7 @@
                 <div class="col-md-10 col-md-offset-1">
                     <table class="table table-striped table-responsive table-user-information">
                         <tbody>
+                            @profileRow("用户ID", user.userId.toString)
                             @profileRow("电子邮件", user.email)
                             @profileRow("性别", user.gender match {
                                                     case Gender.MALE => "男"

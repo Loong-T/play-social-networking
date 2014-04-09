@@ -1,12 +1,17 @@
 @(message: String, args: Map[String, Object])
 
 @main(message, "home", args) {
-    <div class="jumbotron">
-        <h1>Hello, world!</h1>
-        <p>
-            基于Play 2这个Web框架开发的一个社交网站。毕业设计成果。
-            <a href="http://nerd-is.in" class="btn btn-info btn-lg pull-right" role="button">了解更多 &raquo;</a>
-        </p>
+    <div class="jumbotron row">
+
+        <div class="col-md-7 col-md-offset-1">
+            <h1>Hello, world!</h1>
+            <p>
+                基于Play 2框架开发的一个社交网站。
+            </p>
+            <p>
+                毕业设计成果。
+            </p>
+        </div>
 
     </div>
     @includeCommonJS()

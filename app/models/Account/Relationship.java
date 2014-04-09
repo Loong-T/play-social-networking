@@ -4,9 +4,7 @@ import com.avaje.ebean.Ebean;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Zheng Xuqiang on 14-3-17.

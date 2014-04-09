@@ -8,7 +8,6 @@ import utils.DateUitls;
 import views.html.account.followList;
 import views.html.message;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -82,19 +81,14 @@ public class Follow extends Controller {
 
     /**
      * 获取指定用户的关注用户<br>
-     * TODO 由于水平有限，用了比较绕圈的方法从数据库中获取数据，这里在数据库中查询了两次，需改进
      * @param self 指定用户
      * @return 该用户关注的用户
      */
     public static List<User> getFollowedUsers(User self) {
-        List<User> users = new ArrayList<>();
-        for (Relationship rs : Relationship.finder
-                                .where()
-                                .eq("fromUser", self)
-                                .findList()) {
-            users.add(User.finder.byId(rs.toUser.userId));
-        }
-
-        return users;
+        return User.finder
+                .fetch("followers")
+                .where()
+                    .eq("followers.fromUser", self)
+                .findList();
     }
 }

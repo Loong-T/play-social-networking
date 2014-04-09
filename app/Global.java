@@ -1,8 +1,8 @@
 import controllers.Account;
 import play.GlobalSettings;
+import play.libs.F.Promise;
 import play.mvc.Http;
 import play.mvc.SimpleResult;
-import play.libs.F.Promise;
 import views.html.error.error;
 
 import java.util.HashMap;
