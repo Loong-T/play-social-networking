@@ -19,17 +19,9 @@ public class Relationship extends Model {
     @Column(name = "rs_id")
     public Long relationshipId;
 
-//    @JoinColumn(name = "rs_fromuser", referencedColumnName = "users_id",
-//            nullable = false, updatable=false)
-//    @OneToOne(optional = false, targetEntity = User.class)
-
     @JoinColumn(name = "rs_fromuser", nullable = false, updatable = false)
     @ManyToOne(optional = false)
     public User fromUser;
-
-//    @JoinColumn(name = "rs_touser", referencedColumnName = "users_id",
-//            nullable = false, updatable=false)
-//    @OneToOne(optional = false, targetEntity = User.class)
 
     @JoinColumn(name = "rs_touser", nullable = false, updatable = false)
     @ManyToOne(optional = false)

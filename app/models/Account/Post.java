@@ -15,21 +15,21 @@ import java.util.List;
 public class Post extends Model {
 
     @Id
-    @Column(name = "posts_id")
+    @Column(name = "p_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long postId;
 
-    @JoinColumn(name = "posts_author", nullable = false, updatable = false)
+    @JoinColumn(name = "p_author", nullable = false, updatable = false)
     @ManyToOne(optional = false)
     public User author;
 
-    @Column(name = "posts_content", length = 512)
+    @Column(name = "p_content", length = 512)
     public String content;
 
-    @Column(name = "posts_time")
+    @Column(name = "p_time")
     public Date postTime;
 
-    @Column(name = "posts_pics")
+    @Column(name = "p_pic")
     public String pic;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")

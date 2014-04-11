@@ -189,13 +189,13 @@ public class Account extends Controller {
 
         List<Post> posts = Ebean.find(Post.class)
                 .where()
-                .raw("posts_author IN (SELECT p.posts_author " +
-                                "FROM t_posts p JOIN t_users u ON u.users_id = p.posts_author " +
+                .raw("p_author IN (SELECT p.p_author " +
+                                "FROM t_posts p JOIN t_users u ON u.u_id = p.p_author " +
                                 "LEFT JOIN t_relationship r ON r.rs_touser = u.users_id " +
                                 "WHERE " +
-                                "    (p.posts_author = ? " +
+                                "    (p.p_author = ? " +
                                 "        or r.rs_fromuser = ?)) " +
-                                "order by posts_time desc ",
+                                "order by p_time desc ",
                     new Object[]{self.userId, self.userId})
                 .findList();
         args.put("posts", posts);

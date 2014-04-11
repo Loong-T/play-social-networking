@@ -19,70 +19,76 @@ import java.util.List;
 public class User extends Model {
 
     @Id
-    @Column(name = "users_id")
+    @Column(name = "u_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long userId;
 
-    @Column(name = "users_username", nullable = false,unique = true)
+    @Column(name = "u_username", nullable = false,unique = true)
     public String userName;
 
-    @Column(name = "users_email", nullable = false, unique = true)
+    @Column(name = "u_email", nullable = false, unique = true)
     @Constraints.Email
     @Constraints.Required
     public String email;
 
-    @Column(name = "users_password")
+    @Column(name = "u_password")
     @Constraints.Required
     @Constraints.Pattern(value = "^\\w{6,128}$",
             message = "密码的长度在6-128之间，可以使用的字符有数字，字母和下划线")
     public String password;
 
-    @Column(name = "users_salt")
+    @Column(name = "u_salt")
     public String salt;
 
-    @Column(name = "users_gender")
+    @Column(name = "u_gender")
     @Enumerated
     public Gender gender = Gender.OTHER;
 
-    @Column(name = "users_address")
+    @Column(name = "u_address")
     public String address;
 
-    @Column(name = "users_birthday")
+    @Column(name = "u_birthday")
     public Date birthday;
 
-    @Column(name = "users_description", length = 50)
+    @Column(name = "u_description", length = 50)
     @Constraints.MaxLength(value = 50)
     public String description;
 
-    @Column(name = "users_avatar")
+    @Column(name = "u_avatar")
     public String avatar;
 
-    @Column(name = "users_website")
+    @Column(name = "u_website")
     public String website;
 
     /**
      * Sign up date
      * 注册时间
      */
-    @Column(name = "users_signup", nullable = false)
+    @Column(name = "u_signup", nullable = false)
     public Date signUp;
 
     /**
      * Last login date
      * 上次登录时间
      */
-    @Column(name = "users_lastlogin", nullable = false)
+    @Column(name = "u_lastlogin", nullable = false)
     public Date lastLogin;
 
     /**
      * Last check notification date
      * 上次查看通知时间
      */
-    @Column(name = "users_notescheck", nullable = false)
+    @Column(name = "u_notescheck", nullable = false)
     public Date notesCheck;
 
-    @Column(name = "users_activated", nullable = false)
+    @Column(name = "u_activated", nullable = false)
     public Boolean activated = false;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "t_users_groups",
+        joinColumns = @JoinColumn(name = "u_g_uid", referencedColumnName = "u_id", nullable = false, updatable = false),
+        inverseJoinColumns = @JoinColumn(name = "u_g_gid", referencedColumnName = "g_id", nullable = false, updatable = false))
+    public List<Group> groups;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "fromUser")
     public List<Relationship> followUsers;
@@ -95,7 +101,6 @@ public class User extends Model {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
     public List<Comment> comments;
-
 
     public User() {
         Date now = Calendar.getInstance().getTime();

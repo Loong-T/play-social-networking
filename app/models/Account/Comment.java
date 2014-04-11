@@ -13,19 +13,19 @@ import javax.persistence.*;
 public class Comment extends Model {
 
     @Id
-    @Column(name = "cmts_id")
+    @Column(name = "c_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long commentId;
 
-    @JoinColumn(name = "cmts_post", nullable = false, updatable = false)
+    @JoinColumn(name = "c_post", nullable = false, updatable = false)
     @ManyToOne(optional = false)
     public Post post;
 
-    @JoinColumn(name = "cmts_author", nullable = false, updatable = false)
+    @JoinColumn(name = "c_author", nullable = false, updatable = false)
     @ManyToOne(optional = false)
     public User author;
 
-    @Column(name = "cmts_content", length = 512)
+    @Column(name = "c_content", length = 512)
     public String content;
 
 }
