@@ -1,7 +1,6 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Expr;
 import models.account.Gender;
 import models.account.Post;
 import models.account.Relationship;
@@ -174,14 +173,30 @@ public class Account extends Controller {
         args.put("user", self);
         args.put("self", self);
 
+        /*
+        下面的代码应该没有问题，但由于Ebean存在Bug，导致运行结果错误。
+        参见Ebean Bug 402
+        两年前（2012）的Bug到现在还没修复
         List<Post> posts = Ebean.find(Post.class)
-                .fetch("author.followers")
                 .where()
                     .or(
-                            Expr.eq("author.followers.fromUser", self),
-                            Expr.eq("author", self)
+                            Expr.eq("author", self),
+                            Expr.eq("author.followers.fromUser", self)
                     )
                     .orderBy().desc("postTime")
+                .findList();
+        */
+
+        List<Post> posts = Ebean.find(Post.class)
+                .where()
+                .raw("posts_author IN (SELECT p.posts_author " +
+                                "FROM t_posts p JOIN t_users u ON u.users_id = p.posts_author " +
+                                "LEFT JOIN t_relationship r ON r.rs_touser = u.users_id " +
+                                "WHERE " +
+                                "    (p.posts_author = ? " +
+                                "        or r.rs_fromuser = ?)) " +
+                                "order by posts_time desc ",
+                    new Object[]{self.userId, self.userId})
                 .findList();
         args.put("posts", posts);
 

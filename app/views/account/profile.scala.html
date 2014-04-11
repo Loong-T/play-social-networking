@@ -16,7 +16,7 @@
                         这人太懒了，什么描述也没有 ╮（╯﹏╰）╭
                     } else {
                         @if(user.description.length > 15) {
-                            @user.description.substring(0, 15)+"..."
+                            @user.description.substring(0, 15).concat("...")
                         } else {
                             @user.description
                         }

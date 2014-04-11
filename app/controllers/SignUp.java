@@ -108,7 +108,7 @@ public class SignUp extends Controller {
                     + actiAddr + "\">" + actiAddr + "</a></p>如果您没有注册过本网站，请无视这封邮件。请勿回复本邮件。");
         } catch (Exception e) {
             args.put("status", 500);
-            args.put("errorMsg", "出现异常了，我会努力排除错误的<br>(╯﹏╰)b");
+            args.put("errorMsg", "出现异常了，我会努力排除错误的\n(╯﹏╰)b");
             args.put("detailMsg", "发送激活邮件失败");
             return internalServerError(error.render("发送激活邮件失败", args));
         }
