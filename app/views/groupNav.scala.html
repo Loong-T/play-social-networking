@@ -1,0 +1,16 @@
+@(nav: String, group: models.group.Group, self: models.account.User)
+
+<div class="col-md-2 text-center">
+    <ul class="nav nav-pills nav-stacked">
+        <li class="@("active".when(nav == "details"))">
+            <a href="#"><i class="fa fa-bullhorn fa-lg"></i> 详情</a>
+        </li>
+        <li class="@("active".when(nav == "topics"))">
+            <a href="#"><i class="fa fa-comments fa-lg"></i> 话题</a>
+        </li>
+        <li class="@("active".when(nav == "member"))">
+            <a href="#"><i class="fa fa-user fa-lg"></i> 成员</a>
+        </li>
+        <li><a href="@routes.Login.logout()"><i class="fa fa-sign-out fa-lg"></i> 注销</a></li>
+    </ul>
+</div>

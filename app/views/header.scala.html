@@ -17,8 +17,11 @@
                 <li class="@("active".when(nav == "home"))">
                     <a href="@routes.Application.index"><span class="glyphicon glyphicon-home"></span> 主页</a>
                 </li>
-                @*<li class="@("active".when(nav == "about"))"><a href="#about">关于</a></li>*@
-                @*<li class="@("active".when(nav == "contact"))"><a href="#contact">联系</a></li>*@
+                @if(loginUser != null) {
+                    <li class="@("active".when(nav == "group"))">
+                        <a href="@routes.GroupFun.groups"><span class="glyphicon glyphicon-bullhorn"></span> 群组</a>
+                    </li>
+                }
             </ul>
             @if(loginUser == null) {
                 <p class="navbar-text navbar-right"><a href="@routes.SignUp.blank()">注册</a></p>

@@ -17,12 +17,15 @@ import java.util.HashMap;
  */
 public class Login extends Controller {
 
+
+    static HashMap<String, Object> args = new HashMap<>();
+
     public static Result blank() {
         return ok(login.render("用户登录"));
     }
 
     public static Result submit() {
-        HashMap<String, Object> args = new HashMap<>();
+        args.clear();
         if (checkLogin()) {
             args.put("self", Account.getLoginUser());
             return badRequest("您的账户已经登录，无需重复登录");

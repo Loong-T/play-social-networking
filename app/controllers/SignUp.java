@@ -9,6 +9,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import utils.Constant;
 import utils.Crypt;
+import utils.ErrorUtils;
 import views.html.account.activation;
 import views.html.account.signup;
 import views.html.error.error;
@@ -107,10 +108,12 @@ public class SignUp extends Controller {
                     + "，</p><p>这封邮件是由Social-Network系统自动发出的账户激活邮件，请点击下面的超链接来激活您的账号（如果链接无法点击，请将地址复制到浏览器地址栏打开）<br><a href=\""
                     + actiAddr + "\">" + actiAddr + "</a></p>如果您没有注册过本网站，请无视这封邮件。请勿回复本邮件。");
         } catch (Exception e) {
-            args.put("status", 500);
-            args.put("errorMsg", "出现异常了，我会努力排除错误的\n(╯﹏╰)b");
-            args.put("detailMsg", "发送激活邮件失败");
-            return internalServerError(error.render("发送激活邮件失败", args));
+            return internalServerError(ErrorUtils.errorPage(
+                    "发送激活邮件失败",
+                    "出现异常了，我会努力排除错误的\n(╯﹏╰)b",
+                    "发送激活邮件失败",
+                    500,
+                    args));
         }
 
         return ok(

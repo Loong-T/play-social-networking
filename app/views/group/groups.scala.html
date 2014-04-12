@@ -1,0 +1,77 @@
+@(title: String, args: Map[String, Object])
+@import models.group.Group; val created = if(args == null) null else args("created").asInstanceOf[List[Group]]; val joined = if(args == null) null else args("joined").asInstanceOf[List[Group]]
+@import models.account.User; val self = if(args == null) null else args("self").asInstanceOf[User]
+
+@main(title, "group", args) {
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/group/groups.css")">
+    @includeFontAwesome()
+    <div class="row jumbotron">
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 main-content">
+
+                    <div class="panel panel-info" id="new-group-panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">新建群组</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form action="@routes.GroupFun.newGroup" method="POST" id="new-group" role="form">
+                                <div class="row">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">名称</span>
+                                        <input type="text" class="form-control" name="group-name">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">简介</span>
+                                        <input type="text" class="form-control" name="group-description">
+                                    </div>
+                                    <input class="btn btn-info pull-right" type="submit" value="创建">
+                                </div>
+                            </form>
+                        </div>
+                    </div> <!-- #new-group-panel -->
+
+                    <div class="panel panel-success" id="groups-created">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">我创建的群组</h3>
+                        </div>
+                        <div class="panel-body">
+                            @if(created.size != 0) {
+                                <div class="list-group">
+                                @for(group <- created) {
+                                    @simpleGroupItem(group)
+                                }
+                                </div>
+                            } else {
+                                <p>你还没有创建群组</p>
+                            }
+                        </div>
+                    </div> <!-- #group-created -->
+
+                    <div class="panel panel-primary" id="groups-joined">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">我加入的群组</h3>
+                        </div>
+                        <div class="panel-body">
+                        @if(joined.size != 0) {
+                            <div class="list-group">
+                            @for(group <- joined) {
+                                @simpleGroupItem(group)
+                            }
+                            </div>
+                        } else {
+                            <p>你还没有加入群组</p>
+                        }
+                        </div>
+                    </div>
+
+                </div> <!-- .main-content -->
+            </div> <!-- .row -->
+
+        </div> <!-- .col-md-10 -->
+
+        @userNav("groups", self, self)
+    </div> <!-- div jumbotron -->
+
+    @includeCommonJS()
+}

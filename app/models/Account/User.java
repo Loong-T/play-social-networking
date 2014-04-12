@@ -1,5 +1,6 @@
 package models.account;
 
+import models.group.Group;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 import utils.Crypt;
@@ -132,7 +133,11 @@ public class User extends Model {
             new Finder<>(Long.class, User.class);
 
     public static User getUserById(Long id) {
-        return finder.where().idEq(id).findUnique();
+        return finder.byId(id);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof User && this.userId.equals(((User) o).userId);
+    }
 }

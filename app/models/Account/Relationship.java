@@ -33,7 +33,6 @@ public class Relationship extends Model {
     public static Finder<Long, Relationship> finder
             = new Finder<>(Long.class, Relationship.class);
 
-    @Transient
     public static Relationship getRelationshipByUser(Long fromUser, Long toUser) {
         return Ebean.find(Relationship.class).where()
                 .eq("rs_fromuser", fromUser)
@@ -41,4 +40,8 @@ public class Relationship extends Model {
                 .findUnique();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Relationship && ((Relationship) o).relationshipId.equals(this.relationshipId);
+    }
 }

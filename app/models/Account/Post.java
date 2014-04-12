@@ -1,5 +1,6 @@
 package models.account;
 
+import models.group.Group;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
@@ -35,6 +36,14 @@ public class Post extends Model {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
     public List<Comment> comments;
 
+    @JoinColumn(name = "p_group", updatable = false)
+    @ManyToOne(optional = false)
+    public Group group;
+
     public static Finder<Long, Post> finder = new Finder<>(Long.class, Post.class);
 
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Post && ((Post) o).postId.equals(this.postId);
+    }
 }

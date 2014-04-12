@@ -1,0 +1,35 @@
+li > a {
+  color: #262626;
+}
+
+.main-content {
+    border-radius: 10px;
+    padding: 12px 8px;
+    background-color: #fafafa;
+}
+
+#new-group {
+    margin: 0 12px;
+}
+
+#new-group .row > div {
+    margin: 4px 0;
+}
+
+.group-item {
+    min-height: 80px;
+}
+
+.group-item-avatar {
+    margin: 6px;
+}
+
+.group-item > .list-group-item-heading {
+    margin-top: 10px;
+    margin-left: 9px;
+}
+
+.img-circle {
+    width: 55px;
+    border: 3px solid #dadada;
+}

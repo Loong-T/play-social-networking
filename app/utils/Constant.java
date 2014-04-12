@@ -26,6 +26,11 @@ public class Constant {
     public static final String POST_TIME_FORMAT = "M月d日 kk:mm";
 
     /**
+     * Group创建时间格式
+     */
+    public static final String GROUP_CREATED_TIME = "yyyy年M月d日";
+
+    /**
      * 上传文件存储路径
      */
     public static final String UPLOAD_FILE_PATH = "public/files/users/";

@@ -191,7 +191,7 @@ public class Account extends Controller {
                 .where()
                 .raw("p_author IN (SELECT p.p_author " +
                                 "FROM t_posts p JOIN t_users u ON u.u_id = p.p_author " +
-                                "LEFT JOIN t_relationship r ON r.rs_touser = u.users_id " +
+                                "LEFT JOIN t_relationship r ON r.rs_touser = u.u_id " +
                                 "WHERE " +
                                 "    (p.p_author = ? " +
                                 "        or r.rs_fromuser = ?)) " +

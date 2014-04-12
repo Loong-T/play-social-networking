@@ -1,0 +1,24 @@
+@(nav: String, user: models.account.User, self: models.account.User)
+
+<div class="col-md-2 text-center">
+    <ul class="nav nav-pills nav-stacked">
+        @if(self != null && self.userId.equals(user.userId)) {
+            <li class="@("active".when(nav == "personal"))">
+                <a href="@routes.Account.personalPage"><i class="fa fa-cloud fa-lg"></i> 动态</a>
+            </li>
+        }
+            <li class="@("active".when(nav == "posts"))">
+                <a href="@routes.Account.user(user.userId.toString)"><i class="fa fa-comment fa-lg"></i> 发言</a>
+            </li>
+            <li class="@("active".when(nav == "profile"))">
+                <a href="@routes.Account.profile(user.userId.toString)"><i class="fa fa-book fa-lg"></i> 资料</a>
+            </li>
+            <li class="@("active".when(nav == "follow-list"))">
+                <a href="@routes.Follow.list(user.userId.toString)"><i class="fa fa-eye fa-lg"></i> 关注</a>
+            </li>
+            <li class="@("active".when(nav == "groups"))">
+                <a href="@routes.GroupFun.groups"><i class="fa fa-group fa-lg"></i> 群组</a>
+            </li>
+            <li><a href="@routes.Login.logout()"><i class="fa fa-sign-out fa-lg"></i> 注销</a></li>
+    </ul>
+</div>

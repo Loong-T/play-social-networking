@@ -1,8 +1,11 @@
-package models.account;
+package models.group;
 
+import models.account.Post;
+import models.account.User;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "t_groups")
 public class Group extends Model {
+
     @Id
     @Column(name = "g_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,6 +31,20 @@ public class Group extends Model {
     @OneToOne(optional = false)
     public User creator;
 
+    @Column(name = "g_created_time")
+    public Date createdTime;
+
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
     public List<User> members;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
+    public List<Post> posts;
+
+    public static Finder<Long, Group> finder = new Finder<>(Long.class, Group.class);
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Group && ((Group) o).groupId.equals(this.groupId);
+    }
+
 }

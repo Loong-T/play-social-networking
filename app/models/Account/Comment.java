@@ -28,4 +28,8 @@ public class Comment extends Model {
     @Column(name = "c_content", length = 512)
     public String content;
 
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Comment && ((Comment) o).commentId.equals(this.commentId);
+    }
 }
