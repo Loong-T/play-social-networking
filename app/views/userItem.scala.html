@@ -1,0 +1,17 @@
+@(user: models.account.User)
+
+<a href="@routes.Account.user(user.userId.toString)" class="list-group-item user-item">
+    <div class="pull-left user-item-avatar">
+        <img class="img-circle user-item-img" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像">
+    </div>
+    <h4 class="list-user-item-heading">@user.userName</h4>
+    <div class="list-user-item-text text-muted">@if(user.description == null || user.description == "") {
+        这人太懒了，什么描述也没有 ╮（╯﹏╰）╭
+    } else {
+        @if(user.description.length > 15) {
+            @user.description.substring(0, 15).concat("...")
+        } else {
+            @user.description
+        }
+    }</div>
+</a>

@@ -17,11 +17,23 @@
                 <li class="@("active".when(nav == "home"))">
                     <a href="@routes.Application.index"><span class="glyphicon glyphicon-home"></span> 主页</a>
                 </li>
+
                 @if(loginUser != null) {
                     <li class="@("active".when(nav == "group"))">
                         <a href="@routes.GroupFun.groups"><span class="glyphicon glyphicon-bullhorn"></span> 群组</a>
                     </li>
                 }
+
+                <li class="dropdown @("active".when(nav == "list"))">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-th-list"></span> 列表
+                    <b class="caret"></b></a>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="@routes.Application.userList">用户列表</a></li>
+                        <li><a href="@routes.Application.groupList">群组列表</a></li>
+                    </ul>
+                </li>
             </ul>
             @if(loginUser == null) {
                 <p class="navbar-text navbar-right"><a href="@routes.SignUp.blank()">注册</a></p>

@@ -5,7 +5,7 @@
         <img class="img-circle group-item-img" src="@routes.Assets.at("images/default-group.jpg")" alt="群组头像">
     </div>
     <h4 class="list-group-item-heading">@group.name</h4>
-    <p class="list-group-item-text text-muted">@if(group.description == null || group.description == "") {
+    <div class="list-group-item-text text-muted">@if(group.description == null || group.description == "") {
         这人太懒了，什么描述也没有 ╮（╯﹏╰）╭
     } else {
         @if(group.description.length > 40) {
@@ -13,5 +13,5 @@
         } else {
             @group.description
         }
-    }</p>
+    }</div>
 </a>

@@ -17,7 +17,7 @@ li > a {
 }
 
 .group-item {
-    min-height: 80px;
+    min-height: 88px;
 }
 
 .group-item-avatar {
@@ -32,4 +32,5 @@ li > a {
 .img-circle {
     width: 55px;
     border: 3px solid #dadada;
+    margin-right: 5px;
 }

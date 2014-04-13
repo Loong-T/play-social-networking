@@ -1,0 +1,39 @@
+@(title: String, category: String, args: Map[String, Object])
+@import models.account.User
+@import models.group.Group
+
+@main(title, "list", args) {
+    @defining(
+        category match {
+            case "用户" => if(args == null) null else args ("users")
+            case "群组" => if(args == null) null else args ("groups")
+            case _ => null
+        }
+    ) { list =>
+        <link href="@routes.Assets.at("stylesheets/listInfo.css")" rel="stylesheet">
+        <div class="jumbotron row">
+
+            <div class="col-md-offset-1 col-md-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">@{category}列表</div>
+
+                    <div class="panel-body">
+                        <p>所有@{category}列表</p>
+                        <ul class="list-group">
+                            @if("用户".equals(category)) {
+                                @list.asInstanceOf[List[User]].map { item =>
+                                    @userItem(item)
+                                }
+                            } else {
+                                @list.asInstanceOf[List[Group]].map { item =>
+                                    @simpleGroupItem(item)
+                                }
+                            }
+                        </ul> <!-- .list-group -->
+                    </div> <!-- .panel-body -->
+                </div> <!-- .panel-default -->
+            </div> <!-- .col-md-10 -->
+    }
+    </div> <!-- .jumbotron -->
+    @includeCommonJS()
+}
