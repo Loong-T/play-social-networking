@@ -1,6 +1,7 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Expr;
 import models.account.Gender;
 import models.account.Post;
 import models.account.Relationship;
@@ -72,7 +73,13 @@ public class Account extends Controller {
 
         args.put("user", user);
         args.put("self", self);
-        args.put("posts", Post.finder.where().eq("author", user).orderBy().desc("postTime").findList());
+        List<Post> posts = Post.finder
+                .where()
+                    .and(Expr.eq("author", user),
+                            Expr.isNull("group"))
+                    .orderBy().desc("postTime")
+                .findList();
+        args.put("posts", posts);
 
         return ok(userPosts.render(user.userName + "的信息", args));
     }
@@ -193,9 +200,10 @@ public class Account extends Controller {
                                 "FROM t_posts p JOIN t_users u ON u.u_id = p.p_author " +
                                 "LEFT JOIN t_relationship r ON r.rs_touser = u.u_id " +
                                 "WHERE " +
-                                "    (p.p_author = ? " +
-                                "        or r.rs_fromuser = ?)) " +
-                                "order by p_time desc ",
+                                "    ( p.p_author = ? " +
+                                "     OR r.rs_fromuser = ?)) " +
+                                "AND p_group IS NULL " +
+                                "ORDER BY p_time DESC ",
                     new Object[]{self.userId, self.userId})
                 .findList();
         args.put("posts", posts);

@@ -1,5 +1,6 @@
 package controllers;
 
+import models.account.Post;
 import models.account.User;
 import models.group.Group;
 import play.data.DynamicForm;
@@ -41,6 +42,9 @@ public class GroupFun extends Controller {
             return badRequest(ErrorUtils.errorPage("错误", "群组查看出错", "该群组不存在", 400, args));
         }
         args.put("group", thisGroup);
+
+        List<Post> posts = Post.finder.where().eq("group", thisGroup).orderBy().desc("postTime").findList();
+        args.put("posts", posts);
 
         return ok(group.render("群组", args));
     }
@@ -129,6 +133,13 @@ public class GroupFun extends Controller {
             return badRequest(ErrorUtils.errorPage("错误", "群组删除出错", "你不是该群组的创建者", 400, args));
         }
 
+        for (Post post : thisGroup.posts) {
+            post.delete();
+        }
+        for (User member : thisGroup.members) {
+            member.groups.remove(thisGroup);
+            member.update();
+        }
         thisGroup.delete();
 
         return redirect("/groups");

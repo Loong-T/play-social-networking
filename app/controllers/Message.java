@@ -2,6 +2,7 @@ package controllers;
 
 import models.account.Post;
 import models.account.User;
+import models.group.Group;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import play.mvc.Controller;
@@ -41,6 +42,19 @@ public class Message extends Controller {
             return badRequest("发布的内容过长。");
         }
         post.content = content;
+
+        String[] groups = body.asFormUrlEncoded().get("group");
+        if (groups != null) {
+            String groupId = groups[0];
+            Group group = Group.finder.byId(Long.parseLong(groupId));
+            if (group == null) {
+                return badRequest("不存在该群组");
+            }
+            else if (!group.members.contains(self)) {
+                return badRequest("你不是该群组的成员");
+            }
+            post.group = group;
+        }
 
         // 处理图片
         Http.MultipartFormData.FilePart pic = body.getFile("pic");

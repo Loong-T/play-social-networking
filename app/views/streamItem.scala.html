@@ -1,19 +1,19 @@
 @(author: models.account.User, post: models.account.Post)
-@import utils.Constant; val picPath = Constant.ASSET_UPLOAD_FILE_PATH + author.userId.toString + "../../public/" + Constant.USER_IMAGES_PATH + post.pic
+@import utils.Constant; val picPath = Constant.ASSET_UPLOAD_FILE_PATH + author.userId.toString + "/" + Constant.USER_IMAGES_PATH + post.pic
 
 <li class="stream-item" id="stream-item-post-id">
     <div class="post">
         <div class="post-header">
             <a href="@routes.Account.user(author.userId.toString)" class="user-account">
-                <img class="post-user-avatar pull-left" src="@routes.Assets.at("../../public/images/default-user.jpg")" alt="用户头像"/>
+                <img class="post-user-avatar pull-left" src="@routes.Assets.at("images/default-user.jpg")" alt="用户头像"/>
                 <strong class="user-name">@author.userName</strong>
             </a>
             <span class="text-muted">@{post.postTime.format(Constant.POST_TIME_FORMAT)}</span>
         </div>
-        @if(post.content != null && !"../../public".equals(post.content)) {
+        @if(post.content != null && !"".equals(post.content)) {
             <p class="post-content">@post.content</p>
         }
-        @if(post.pic != null && !"../../public".equals(post.pic)) {
+        @if(post.pic != null && !"".equals(post.pic)) {
             <div class="post-img">
                 <a data-img-url="@routes.Assets.at(picPath)" data-toggle="modal" data-target="#imgModal">
                     <img class="img-rounded"

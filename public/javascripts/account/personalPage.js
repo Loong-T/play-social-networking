@@ -10,7 +10,7 @@ $('#post-form').on('submit', function(event) {
   event.preventDefault();
   var formData = new FormData();
   var postPic = $('#post-pic');
-  var picName = postPic.prev('span');
+//  var picName = postPic.prev('span');
   var postContent = $('#post-content');
   var submitBtn = $('#post-submit');
 

@@ -25,6 +25,17 @@ li > a {
     margin: 4px;
 }
 
+.progress {
+    margin-top: 52px;
+    margin-bottom: 0;
+    width: 100%;
+    height: 10px;
+}
+
+.progress-bar {
+    min-width: 1%;
+}
+
 ol.stream-items {
   list-style: none;
   padding-left: 8px;
