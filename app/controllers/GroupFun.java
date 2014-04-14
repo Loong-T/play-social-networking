@@ -10,6 +10,7 @@ import play.mvc.Result;
 import utils.DateUitls;
 import utils.ErrorUtils;
 import views.html.group.group;
+import views.html.group.groupMembers;
 import views.html.group.groups;
 
 import java.util.ArrayList;
@@ -174,5 +175,20 @@ public class GroupFun extends Controller {
         newGroup.update();
 
         return redirect("/group?gid=" + gid);
+    }
+
+    public static Result members(String gid) {
+        User self = Account.getLoginUser();
+        args.clear();
+        args.put("self", self);
+
+        Group thisGroup = Group.finder.byId(Long.parseLong(gid));
+        if (thisGroup == null) {
+            return badRequest(ErrorUtils.errorPage("错误", "群组删除出错", "该群组不存在", 400, args));
+        }
+        args.put("group", thisGroup);
+        args.put("members", thisGroup.members);
+
+        return ok(groupMembers.render("成员列表", args));
     }
 }

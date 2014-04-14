@@ -5,8 +5,8 @@
 @import models.group.Group; val group = if(args == null) null else args("group").asInstanceOf[Group]
 
 @main(title, "group", args) {
-    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/group/group.css")">
     @includeFontAwesome()
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/group/group.css")">
     <div class="row jumbotron">
         <div class="col-md-10">
             <div class="row">
@@ -125,7 +125,7 @@
             </div>
         </div> <!-- #editModal -->
 
-        @groupNav("details", null, self)
+        @groupNav("details", group, null)
     </div> <!-- div jumbotron -->
 
     @includeCommonJS()

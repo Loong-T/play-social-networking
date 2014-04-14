@@ -2,7 +2,7 @@
 @import models.account.Post; val posts = if(args == null) null else args("posts").asInstanceOf[List[Post]]
 @import models.account.User; val user = if(args == null) null else args("user").asInstanceOf[User]; val self = if(args == null) null else args("self").asInstanceOf[User]
 
-@main(title, "personal", args) {
+@main(title, "home", args) {
     @includeFontAwesome()
     <link rel="stylesheet" href="@routes.Assets.at("stylesheets/account/personalPage.css")"/>
     <div class="row jumbotron">

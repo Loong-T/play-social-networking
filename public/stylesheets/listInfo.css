@@ -1,3 +1,7 @@
+li > a {
+    color: #262626;
+}
+
 .group-item {
     min-height: 88px;
 }
