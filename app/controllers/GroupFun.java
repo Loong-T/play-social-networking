@@ -28,7 +28,9 @@ public class GroupFun extends Controller {
 
         List<Group> createdGroups = Group.finder.where().eq("creator", self).findList();
         args.put("created", createdGroups);
-        args.put("joined", self.groups);
+        if (self != null) {
+            args.put("joined", self.groups);
+        }
 
         return ok(groups.render("我的群组", args));
     }

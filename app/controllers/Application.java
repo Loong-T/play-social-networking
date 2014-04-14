@@ -11,9 +11,9 @@ import java.util.HashMap;
 
 public class Application extends Controller {
     static HashMap<String, Object> args = new HashMap<>();
-    static User self = Account.getLoginUser();
 
     public static Result index() {
+        User self = Account.getLoginUser();
         args.clear();
         args.put("self", self);
 
@@ -30,6 +30,7 @@ public class Application extends Controller {
     }
 
     public static Result userList() {
+        User self = Account.getLoginUser();
         args.clear();
         args.put("self", self);
 
@@ -39,6 +40,7 @@ public class Application extends Controller {
     }
 
     public static Result groupList() {
+        User self = Account.getLoginUser();
         args.clear();
         args.put("self", self);
 

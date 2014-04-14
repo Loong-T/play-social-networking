@@ -19,18 +19,20 @@
                             <span class="text-muted pull-right">创建时间：@group.createdTime.format(Constant.GROUP_CREATED_TIME) </span>
                             <div class="group-description">@group.description </div>
 
-                            @if(self.equals(group.creator)) {
-                                <a class="btn btn-sm btn-danger pull-right"
-                                    href="@routes.GroupFun.delGroup(group.groupId.toString)">删除</a>
-                                <button class="btn btn-sm btn-primary pull-right"
-                                    data-toggle="modal" data-target="#editModal">修改</button>
-                            } else {
-                                @if(group.members.contains(self)) {
+                            @if(self != null) {
+                                @if(self.equals(group.creator)) {
                                     <a class="btn btn-sm btn-danger pull-right"
-                                        href="@routes.GroupFun.leaveGroup(group.groupId.toString)">退出</a>
+                                    href="@routes.GroupFun.delGroup(group.groupId.toString)">删除</a>
+                                    <button class="btn btn-sm btn-primary pull-right"
+                                    data-toggle="modal" data-target="#editModal">修改</button>
                                 } else {
-                                    <a class="btn btn-sm btn-success pull-right"
+                                    @if(group.members.contains(self)) {
+                                        <a class="btn btn-sm btn-danger pull-right"
+                                        href="@routes.GroupFun.leaveGroup(group.groupId.toString)">退出</a>
+                                    } else {
+                                        <a class="btn btn-sm btn-success pull-right"
                                         href="@routes.GroupFun.joinGroup(group.groupId.toString)">加入</a>
+                                    }
                                 }
                             }
                         </div> <!-- panel-body -->

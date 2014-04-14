@@ -37,7 +37,7 @@ public class Post extends Model {
     public List<Comment> comments;
 
     @JoinColumn(name = "p_group", updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     public Group group;
 
     public static Finder<Long, Post> finder = new Finder<>(Long.class, Post.class);
