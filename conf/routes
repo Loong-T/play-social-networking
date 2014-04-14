@@ -43,8 +43,8 @@ POST        /new-group             controllers.GroupFun.newGroup
 GET         /group                 controllers.GroupFun.group(gid)
 GET         /del-group             controllers.GroupFun.delGroup(gid)
 POST        /edit-group            controllers.GroupFun.editGroup
-GET         /join-group            controllers.GroupFun.joinGroup
-GET         /leave-group           controllers.GroupFun.leaveGroup
+GET         /join-group            controllers.GroupFun.joinGroup(gid)
+GET         /leave-group           controllers.GroupFun.leaveGroup(gid)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file          controllers.Assets.at(path="/public", file)

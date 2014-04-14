@@ -18,9 +18,9 @@ import java.util.List;
 public class GroupFun extends Controller {
 
     static HashMap<String, Object> args = new HashMap<>();
-    static User self = Account.getLoginUser();
 
     public static Result groups() {
+        User self = Account.getLoginUser();
         args.clear();
         args.put("self", self);
 
@@ -32,6 +32,7 @@ public class GroupFun extends Controller {
     }
 
     public static Result group(String gid) {
+        User self = Account.getLoginUser();
         args.clear();
         args.put("self", self);
 
@@ -44,15 +45,52 @@ public class GroupFun extends Controller {
         return ok(group.render("群组", args));
     }
 
-    public static Result joinGroup() {
-        return play.mvc.Results.TODO;
+    public static Result joinGroup(String gid) {
+        User self = Account.getLoginUser();
+        args.clear();
+        if (self == null) {
+            return badRequest(ErrorUtils.errorPage("错误", "群组加入出错", "你还没有登录", 400, args));
+        }
+
+        args.put("self", self);
+        Group thisGroup = Group.finder.byId(Long.parseLong(gid));
+        if (thisGroup == null) {
+            return badRequest(ErrorUtils.errorPage("错误", "群组加入出错", "该群组不存在", 400, args));
+        }
+        else if (thisGroup.members.contains(self)) {
+            return badRequest(ErrorUtils.errorPage("错误", "群组加入出错", "你已经是该群组的成员", 400, args));
+        }
+
+        thisGroup.members.add(self);
+        thisGroup.update();
+
+        return redirect("/group?gid=" + gid);
     }
 
-    public static Result leaveGroup() {
-        return play.mvc.Results.TODO;
+    public static Result leaveGroup(String gid) {
+        User self = Account.getLoginUser();
+        args.clear();
+        if (self == null) {
+            return badRequest(ErrorUtils.errorPage("错误", "群组退出出错", "你还没有登录", 400, args));
+        }
+
+        args.put("self", self);
+        Group thisGroup = Group.finder.byId(Long.parseLong(gid));
+        if (thisGroup == null) {
+            return badRequest(ErrorUtils.errorPage("错误", "群组退出出错", "该群组不存在", 400, args));
+        }
+        else if (!thisGroup.members.contains(self)) {
+            return badRequest(ErrorUtils.errorPage("错误", "群组退出出错", "你不是该群组的成员", 400, args));
+        }
+
+        thisGroup.members.remove(self);
+        thisGroup.update();
+
+        return redirect("/group?gid=" + gid);
     }
 
     public static Result newGroup() {
+        User self = Account.getLoginUser();
         args.clear();
         args.put("self", self);
 
@@ -79,6 +117,7 @@ public class GroupFun extends Controller {
     }
 
     public static Result delGroup(String gid) {
+        User self = Account.getLoginUser();
         args.clear();
         args.put("self", self);
 
@@ -96,6 +135,7 @@ public class GroupFun extends Controller {
     }
 
     public static Result editGroup() {
+        User self = Account.getLoginUser();
         args.clear();
         args.put("self", self);
 
