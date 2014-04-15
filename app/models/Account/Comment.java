@@ -3,6 +3,7 @@ package models.account;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Zheng Xuqiang on 2014/4/6 0006.
@@ -27,6 +28,9 @@ public class Comment extends Model {
 
     @Column(name = "c_content", length = 512)
     public String content;
+
+    @Column(name = "c_time")
+    public Date time;
 
     @Override
     public boolean equals(Object o) {

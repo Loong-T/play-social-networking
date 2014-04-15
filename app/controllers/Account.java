@@ -180,6 +180,10 @@ public class Account extends Controller {
         args.put("user", self);
         args.put("self", self);
 
+        if (self == null) {
+            return redirect("/login");
+        }
+
         /*
         下面的代码应该没有问题，但由于Ebean存在Bug，导致运行结果错误。
         参见Ebean Bug 402

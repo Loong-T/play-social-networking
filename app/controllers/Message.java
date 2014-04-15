@@ -1,10 +1,15 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import models.account.Comment;
 import models.account.Post;
 import models.account.User;
 import models.group.Group;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import play.data.DynamicForm;
+import play.data.Form;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -109,5 +114,42 @@ public class Message extends Controller {
         }
 
         return ok("OK");
+    }
+
+    public static Result newComment() {
+        User self = Account.getLoginUser();
+        args.clear();
+        args.put("self", self);
+        if (self == null) {
+            return badRequest("你没有登录！");
+        }
+
+        DynamicForm data = Form.form().bindFromRequest();
+        Long postId = Long.parseLong(data.get("post"));
+        String cmtContent = data.get("comment");
+        Post commentTo = Post.finder.byId(postId);
+        if (commentTo == null) {
+            return badRequest("你所评论的信息不存在！");
+        }
+        if (cmtContent == null || "".equals(cmtContent.trim())) {
+            return badRequest("评论内容不能为空");
+        }
+
+        Comment comment = new Comment();
+        comment.author = self;
+        comment.post = commentTo;
+        comment.content = cmtContent;
+        comment.time = DateUitls.now();
+
+        comment.save();
+
+        ObjectNode result = Json.newObject();
+        result.put("author", self.userName);
+        result.put("authorUrl", "/user?uid=" + self.userId);
+        result.put("post", commentTo.postId.toString());
+        result.put("comment", cmtContent);
+
+        response().setContentType("application/json");
+        return ok(result);
     }
 }

@@ -1,4 +1,4 @@
-@(author: models.account.User, post: models.account.Post)
+@(author: models.account.User, post: models.account.Post, self: models.account.User)
 @import utils.Constant; val picPath = Constant.ASSET_UPLOAD_FILE_PATH + author.userId.toString + "/" + Constant.USER_IMAGES_PATH + post.pic
 
 <li class="stream-item" id="stream-item-post-id">
@@ -10,16 +10,45 @@
             </a>
             <span class="text-muted">@{post.postTime.format(Constant.POST_TIME_FORMAT)}</span>
         </div>
-        @if(post.content != null && !"".equals(post.content)) {
-            <p class="post-content">@post.content</p>
-        }
-        @if(post.pic != null && !"".equals(post.pic)) {
-            <div class="post-img">
-                <a data-img-url="@routes.Assets.at(picPath)" data-toggle="modal" data-target="#imgModal">
-                    <img class="img-rounded"
-                        src="@routes.Assets.at(picPath)"/>
+
+        <div class="post-body">
+            @if(post.content != null && !"".equals(post.content)) {
+                <p class="post-content">@post.content</p>
+            }
+            @if(post.pic != null && !"".equals(post.pic)) {
+                <div class="post-img">
+                    <a data-img-url="@routes.Assets.at(picPath)" data-toggle="modal" data-target="#imgModal">
+                        <img class="img-rounded"
+                            src="@routes.Assets.at(picPath)"/>
+                    </a>
+                </div>
+            }
+        </div>
+
+        <div class="post-footer">
+            <div class="comment-btn" data-for="#comments-to-post-@post.postId">
+                <a class="text-muted">
+                    <span class="glyphicon glyphicon-comment"></span> 评论&nbsp;&nbsp;
+                    <span class="chevron"><span class="glyphicon glyphicon-chevron-down"></span></span>
                 </a>
             </div>
-        }
+
+            <div class="comment-container" id="comments-to-post-@post.postId">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" id="input-comment-@post.postId">
+                    <span class="input-group-btn">
+                        <button class="btn btn-info add-comment-btn" type="button" data-post-id="@post.postId">评论</button>
+                    </span>
+                </div>
+                <ul class="list-group" id="comment-group-to-post-@post.postId">
+                    @post.comments.map { comment =>
+                        <li class="list-group-item text-muted">
+                            <a href="@routes.Account.user(comment.author.userId.toString)">
+                                @comment.author.userName</a>：@comment.content
+                        </li>
+                    }
+                </ul>
+            </div> <!-- .comment -->
+        </div> <!-- .post-footer -->
     </div>
 </li>

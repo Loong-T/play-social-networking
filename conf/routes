@@ -36,6 +36,7 @@ GET         /following-list        controllers.Follow.list(uid)
 
 # Post
 POST        /new-post              controllers.Message.newPost
+POST        /comment               controllers.Message.newComment
 
 #GroupFun
 GET         /groups                controllers.GroupFun.groups

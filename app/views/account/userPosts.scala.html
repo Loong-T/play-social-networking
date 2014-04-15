@@ -5,6 +5,7 @@
 @main(title, "posts", args) {
     @includeFontAwesome()
     <link rel="stylesheet" href="@routes.Assets.at("stylesheets/account/personalPage.css")"/>
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/postStream.css")"/>
     <div class="row jumbotron">
         <div class="col-md-10">
             <div class="row">
@@ -16,7 +17,7 @@
                         } else {
                             <ol class="stream-items">
                             @for(post <- posts) {
-                                @streamItem(post.author, post)
+                                @streamItem(post.author, post, self)
                             }
                             </ol>
                         }

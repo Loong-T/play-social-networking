@@ -66,7 +66,7 @@ public class Login extends Controller {
         if ("true".equals(autoLogin)) {
             response().setCookie("remember-me", user.userId + ":" + user.password, 3600 * 24 * 30);
         }
-        return ok(Constant.BASE_URL + "/personal-page");
+        return ok("/personal-page");
     }
 
     public static Result logout() {
