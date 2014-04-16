@@ -15,11 +15,12 @@ import play.mvc.Http;
 import play.mvc.Result;
 import utils.Constant;
 import utils.Crypt;
-import utils.DateUitls;
+import utils.DateUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -106,7 +107,7 @@ public class Message extends Controller {
         validPost = !"".equals(content.trim()) || pic != null;
 
         if (validPost) {
-            post.postTime = DateUitls.now();
+            post.postTime = DateUtils.now();
             post.save();
         }
         else {
@@ -139,7 +140,7 @@ public class Message extends Controller {
         comment.author = self;
         comment.post = commentTo;
         comment.content = cmtContent;
-        comment.time = DateUitls.now();
+        comment.time = DateUtils.now();
 
         comment.save();
 
@@ -151,5 +152,32 @@ public class Message extends Controller {
 
         response().setContentType("application/json");
         return ok(result);
+    }
+
+    public static Result unreadCount() {
+        User self = Account.getLoginUser();
+        if (self == null) {
+            return badRequest();
+        }
+
+        int unreadPostCount = Post.finder
+                .where()
+                    .eq("author.followers.fromUser", self)
+                    .gt("postTime", self.postLastCheck)
+                .findRowCount();
+
+        int unreadCommentCount = Comment.finder
+                .where()
+                    .eq("post.author", self)
+                    .ne("author", self)
+                    .gt("time", self.commentLastCheck)
+                .findRowCount();
+
+        ObjectNode result = Json.newObject();
+        result.put("unreadPostCount", unreadPostCount);
+        result.put("unreadCommentCount", unreadCommentCount);
+
+        response().setContentType("application/json");
+        return ok(String.valueOf(result));
     }
 }

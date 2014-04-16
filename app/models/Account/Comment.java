@@ -32,6 +32,8 @@ public class Comment extends Model {
     @Column(name = "c_time")
     public Date time;
 
+    public static Finder<Long, Comment> finder = new Finder<>(Long.class, Comment.class);
+
     @Override
     public boolean equals(Object o) {
         return o instanceof Comment && ((Comment) o).commentId.equals(this.commentId);

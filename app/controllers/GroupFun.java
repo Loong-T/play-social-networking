@@ -7,7 +7,7 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import utils.DateUitls;
+import utils.DateUtils;
 import utils.ErrorUtils;
 import views.html.group.group;
 import views.html.group.groupMembers;
@@ -116,7 +116,7 @@ public class GroupFun extends Controller {
         ArrayList<User> members = new ArrayList<>();
         members.add(self);
         group.members = members;
-        group.createdTime = DateUitls.now();
+        group.createdTime = DateUtils.now();
 
         group.save();
 

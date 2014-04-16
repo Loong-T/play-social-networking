@@ -9,6 +9,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import utils.Constant;
 import utils.Crypt;
+import utils.DateUtils;
 import utils.ErrorUtils;
 import views.html.account.activation;
 import views.html.account.signup;
@@ -39,6 +40,8 @@ public class SignUp extends Controller {
     public static Result submit() {
         Form<User> form = userForm.bindFromRequest();
         User user = form.get();
+        user.postLastCheck = DateUtils.now();
+        user.commentLastCheck = DateUtils.now();
         user.save();
 
         session("uid", user.userId.toString());

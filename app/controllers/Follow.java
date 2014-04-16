@@ -4,7 +4,7 @@ import models.account.Relationship;
 import models.account.User;
 import play.mvc.Controller;
 import play.mvc.Result;
-import utils.DateUitls;
+import utils.DateUtils;
 import views.html.account.followList;
 import views.html.message;
 
@@ -32,7 +32,7 @@ public class Follow extends Controller {
                 Relationship rs = new Relationship();
                 rs.fromUser = self;
                 rs.toUser = toUser;
-                rs.makeDate = DateUitls.now();
+                rs.makeDate = DateUtils.now();
                 rs.save();
             }
 

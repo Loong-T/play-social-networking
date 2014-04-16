@@ -5,8 +5,7 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import utils.Constant;
-import utils.DateUitls;
+import utils.DateUtils;
 import views.html.account.login;
 
 import java.util.HashMap;
@@ -55,7 +54,7 @@ public class Login extends Controller {
             return unauthorized("错误的密码");
         }
 
-        user.lastLogin = DateUitls.now();
+        user.lastLogin = DateUtils.now();
         user.save();
 
         session("uid", user.userId.toString());

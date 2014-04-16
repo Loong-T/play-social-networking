@@ -82,6 +82,18 @@ public class User extends Model {
     @Column(name = "u_notescheck", nullable = false)
     public Date notesCheck;
 
+    /**
+     * 最后查看关注Post时间
+     */
+    @Column(name = "u_post_last_check")
+    public Date postLastCheck;
+
+    /**
+     * 最后查看Comment时间
+     */
+    @Column(name = "u_comment_last_check")
+    public Date commentLastCheck;
+
     @Column(name = "u_activated", nullable = false)
     public Boolean activated = false;
 

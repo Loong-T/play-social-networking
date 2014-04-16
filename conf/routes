@@ -34,9 +34,10 @@ GET         /follow                controllers.Follow.addFollow(uid)
 GET         /unfollow              controllers.Follow.cancleFollow(uid)
 GET         /following-list        controllers.Follow.list(uid)
 
-# Post
+# Message
 POST        /new-post              controllers.Message.newPost
 POST        /comment               controllers.Message.newComment
+GET         /unread-count          controllers.Message.unreadCount
 
 #GroupFun
 GET         /groups                controllers.GroupFun.groups
