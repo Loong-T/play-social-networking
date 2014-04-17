@@ -21,7 +21,6 @@ public class WebService extends Controller {
     static String NAMESPACE = "snns";
     static String NAMESPACE_URL = "http://nerd-is.in/social-network";
 
-    @BodyParser.Of(BodyParser.Xml.class)
     public static Result userService(String uid) {
         User user = User.finder.byId(Long.parseLong(uid));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -87,6 +86,44 @@ public class WebService extends Controller {
                         soapElemMembers.addChildElement("MemberId", NAMESPACE).addTextNode(member.userId.toString());
                     }
                 }
+            }
+
+            soapMessage.saveChanges();
+            soapMessage.writeTo(baos);
+            message = new String(baos.toByteArray(), "UTF-8");
+        } catch (SOAPException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        response().setContentType("application/xml");
+        return ok(message);
+    }
+
+    public static Result userListService() {
+        List<User> users = User.finder.all();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        String message = null;
+
+        // SOAP
+        try {
+            SOAPMessage soapMessage = MessageFactory.newInstance().createMessage();
+            SOAPPart soapPart = soapMessage.getSOAPPart();
+            SOAPEnvelope soapEnvelope = soapPart.getEnvelope();
+            soapEnvelope.addNamespaceDeclaration(NAMESPACE, NAMESPACE_URL);
+
+            // Body
+            SOAPBody soapBody = soapEnvelope.getBody();
+
+            // Users
+            SOAPElement soapElemUsers = soapBody.addChildElement("Users", NAMESPACE);
+            for (User user : users) {
+                SOAPElement elemUser = soapElemUsers.addChildElement("User", NAMESPACE);
+                elemUser.addChildElement("Id", NAMESPACE).addTextNode(user.userId.toString());
+                elemUser.addChildElement("Name", NAMESPACE).addTextNode(user.userName);
+                elemUser.addChildElement("Email", NAMESPACE).addTextNode(user.email);
+                elemUser.addChildElement("SignUpTime", NAMESPACE).addTextNode(user.signUp.toString());
             }
 
             soapMessage.saveChanges();
