@@ -4,7 +4,6 @@ import play.libs.F.Promise;
 import play.mvc.Http;
 import play.mvc.SimpleResult;
 import utils.ErrorUtils;
-import views.html.error.error;
 
 import java.util.HashMap;
 
