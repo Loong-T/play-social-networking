@@ -8,8 +8,9 @@ $(document).ready(function () {
             url: '/unread-count',
             success: function (data) {
                 $('#unreadCommentBadge').html(data.unreadCommentCount);
+                $('#unreadFollowerBadge').html(data.unreadFollowerCount);
                 $('#unreadPostBadge').html(data.unreadPostCount);
-                $('#unreadTotalBadge').html(data.unreadPostCount + data.unreadCommentCount);
+                $('#unreadTotalBadge').html(data.unreadPostCount + data.unreadCommentCount + data.unreadFollowerCount);
             }
         });
     }

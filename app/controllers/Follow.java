@@ -76,6 +76,9 @@ public class Follow extends Controller {
         List<User> users = getFollowedUsers(user);
         args.put("followedUsers", users);
 
+        self.followerLastCheck = DateUtils.now();
+        self.update();
+
         return ok(followList.render(user.userName + "的关注列表", args));
     }
 

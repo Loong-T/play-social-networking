@@ -3,6 +3,7 @@ package controllers;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.account.Comment;
 import models.account.Post;
+import models.account.Relationship;
 import models.account.User;
 import models.group.Group;
 import org.apache.commons.io.FileUtils;
@@ -16,6 +17,8 @@ import play.mvc.Result;
 import utils.Constant;
 import utils.Crypt;
 import utils.DateUtils;
+import views.html.unreadComment;
+import views.html.unreadPost;
 
 import java.io.File;
 import java.io.IOException;
@@ -173,11 +176,61 @@ public class Message extends Controller {
                     .gt("time", self.commentLastCheck)
                 .findRowCount();
 
+        int unreadFollowerCount = Relationship.finder
+                .where()
+                    .eq("toUser", self)
+                    .gt("makeDate", self.followerLastCheck)
+                .findRowCount();
+
         ObjectNode result = Json.newObject();
         result.put("unreadPostCount", unreadPostCount);
         result.put("unreadCommentCount", unreadCommentCount);
+        result.put("unreadFollowerCount", unreadFollowerCount);
 
         response().setContentType("application/json");
         return ok(String.valueOf(result));
+    }
+
+    public static Result unreadComments() {
+        User self = Account.getLoginUser();
+        if (self == null) {
+            return redirect("/login");
+        }
+        args.clear();
+        args.put("self", self);
+
+        List<Post> unreadComments = Post.finder
+                .where()
+                    .eq("author", self)
+                    .gt("comments.time", self.commentLastCheck)
+                    .ne("comments.author", self)
+                .findList();
+        args.put("unreadComments", unreadComments);
+
+        self.commentLastCheck = DateUtils.now();
+        self.update();
+
+        return ok(unreadComment.render("新的评论", args));
+    }
+
+    public static Result unreadPosts() {
+        User self = Account.getLoginUser();
+        if (self == null) {
+            return redirect("/login");
+        }
+        args.clear();
+        args.put("self", self);
+
+        List<Post> unreadPosts = Post.finder
+                .where()
+                .eq("author.followers.fromUser", self)
+                .gt("postTime", self.postLastCheck)
+                .findList();
+        args.put("unreadPosts", unreadPosts);
+
+        self.postLastCheck = DateUtils.now();
+        self.update();
+
+        return ok(unreadPost.render("新的Post", args));
     }
 }

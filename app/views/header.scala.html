@@ -63,8 +63,9 @@
                             消息 <span class="badge" id="unreadTotalBadge">0</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">新评论 <span class="badge" id="unreadCommentBadge">0</span></a></li>
-                            <li><a href="#">关注者的新消息 <span class="badge" id="unreadPostBadge">0</span></a></li>
+                            <li><a href="@routes.Message.unreadComments">新评论 <span class="badge" id="unreadCommentBadge">0</span></a></li>
+                            <li><a href="@routes.Follow.list(loginUser.userId.toString)">新粉丝 <span class="badge" id="unreadFollowerBadge">0</span></a></li>
+                            <li><a href="@routes.Message.unreadPosts">新Post <span class="badge" id="unreadPostBadge">0</span></a></li>
                         </ul>
                     </li>
                 </ul>

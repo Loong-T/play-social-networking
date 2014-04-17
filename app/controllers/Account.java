@@ -10,7 +10,6 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import utils.DateUtils;
 import views.html.account.personalPage;
 import views.html.account.profile;
 import views.html.account.profileEdit;
@@ -214,8 +213,8 @@ public class Account extends Controller {
         args.put("posts", posts);
 
         // 更新最后查看Post时间
-        self.postLastCheck = DateUtils.now();
-        self.update();
+//        self.postLastCheck = DateUtils.now();
+//        self.update();
 
         return ok(personalPage.render("个人主页", args));
     }

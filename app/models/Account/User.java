@@ -6,7 +6,6 @@ import play.db.ebean.Model;
 import utils.Crypt;
 
 import javax.persistence.*;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -94,6 +93,12 @@ public class User extends Model {
     @Column(name = "u_comment_last_check")
     public Date commentLastCheck;
 
+    /**
+     * 最后查看Follower时间
+     */
+    @Column(name = "u_follower_last_check")
+    public Date followerLastCheck;
+
     @Column(name = "u_activated", nullable = false)
     public Boolean activated = false;
 
@@ -116,10 +121,6 @@ public class User extends Model {
     public List<Comment> comments;
 
     public User() {
-        Date now = Calendar.getInstance().getTime();
-        this.signUp = now;
-        this.lastLogin = now;
-        this.notesCheck = now;
     }
 
     /**

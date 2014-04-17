@@ -3,51 +3,53 @@
 # ~~~~
 
 # Application
-GET         /                      controllers.Application.index()
-GET         /test                  controllers.Application.test()
-GET         /user-list             controllers.Application.userList
-GET         /group-list            controllers.Application.groupList
+GET         /                       controllers.Application.index()
+GET         /test                   controllers.Application.test()
+GET         /user-list              controllers.Application.userList
+GET         /group-list             controllers.Application.groupList
 
 # SignUp
-GET         /signup                controllers.SignUp.blank()
-POST        /signup                controllers.SignUp.submit()
-GET         /emailcheck            controllers.SignUp.checkEmail(email)
-GET         /namecheck             controllers.SignUp.checkUserName(username)
-GET         /sendemail             controllers.SignUp.sendEmail()
-GET         /activation            controllers.SignUp.activation(uid, hash)
+GET         /signup                 controllers.SignUp.blank()
+POST        /signup                 controllers.SignUp.submit()
+GET         /emailcheck             controllers.SignUp.checkEmail(email)
+GET         /namecheck              controllers.SignUp.checkUserName(username)
+GET         /sendemail              controllers.SignUp.sendEmail()
+GET         /activation             controllers.SignUp.activation(uid, hash)
 
 # Login
-GET         /login                 controllers.Login.blank()
-POST        /login                 controllers.Login.submit()
-GET         /logout                controllers.Login.logout()
+GET         /login                  controllers.Login.blank()
+POST        /login                  controllers.Login.submit()
+GET         /logout                 controllers.Login.logout()
 
 # Account
-GET         /user                  controllers.Account.user(uid)
-GET         /profile               controllers.Account.profile(uid)
-GET         /forgetpwd             controllers.Account.forgetPwd()
-GET         /edit-profile          controllers.Account.edit(uid)
-POST        /edit-profile          controllers.Account.submit()
-GET         /personal-page         controllers.Account.personalPage()
+GET         /user                   controllers.Account.user(uid)
+GET         /profile                controllers.Account.profile(uid)
+GET         /forgetpwd              controllers.Account.forgetPwd()
+GET         /edit-profile           controllers.Account.edit(uid)
+POST        /edit-profile           controllers.Account.submit()
+GET         /personal-page          controllers.Account.personalPage()
 
 # Follow
-GET         /follow                controllers.Follow.addFollow(uid)
-GET         /unfollow              controllers.Follow.cancleFollow(uid)
-GET         /following-list        controllers.Follow.list(uid)
+GET         /follow                 controllers.Follow.addFollow(uid)
+GET         /unfollow               controllers.Follow.cancleFollow(uid)
+GET         /following-list         controllers.Follow.list(uid)
 
 # Message
-POST        /new-post              controllers.Message.newPost
-POST        /comment               controllers.Message.newComment
-GET         /unread-count          controllers.Message.unreadCount
+POST        /new-post               controllers.Message.newPost
+POST        /comment                controllers.Message.newComment
+GET         /unread-count           controllers.Message.unreadCount
+GET         /unread-posts           controllers.Message.unreadPosts
+GET         /unread-comments        controllers.Message.unreadComments
 
 #GroupFun
-GET         /groups                controllers.GroupFun.groups
-POST        /new-group             controllers.GroupFun.newGroup
-GET         /group                 controllers.GroupFun.group(gid)
-GET         /del-group             controllers.GroupFun.delGroup(gid)
-POST        /edit-group            controllers.GroupFun.editGroup
-GET         /join-group            controllers.GroupFun.joinGroup(gid)
-GET         /leave-group           controllers.GroupFun.leaveGroup(gid)
-GET         /group-members         controllers.GroupFun.members(gid)
+GET         /groups                 controllers.GroupFun.groups
+POST        /new-group              controllers.GroupFun.newGroup
+GET         /group                  controllers.GroupFun.group(gid)
+GET         /del-group              controllers.GroupFun.delGroup(gid)
+POST        /edit-group             controllers.GroupFun.editGroup
+GET         /join-group             controllers.GroupFun.joinGroup(gid)
+GET         /leave-group            controllers.GroupFun.leaveGroup(gid)
+GET         /group-members          controllers.GroupFun.members(gid)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file          controllers.Assets.at(path="/public", file)
+GET         /assets/*file           controllers.Assets.at(path="/public", file)

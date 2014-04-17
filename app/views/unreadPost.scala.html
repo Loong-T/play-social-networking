@@ -1,0 +1,46 @@
+@(title: String, args: Map[String, Object])
+@import models.account.Post; val posts = if(args == null) null else args("unreadPosts").asInstanceOf[List[Post]]
+@import models.account.User; val self = if(args == null) null else args("self").asInstanceOf[User]
+
+@main(title, "unread", args) {
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/unreadPage.css")"/>
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/postStream.css")"/>
+    <div class="jumbotron row">
+
+        <div class="col-md-offset-1 col-md-10 main-content">
+
+            <div class="stream-container">
+            @if(posts == null || posts.size() == 0) {
+                <p style="text-align: center">没有新内容哦~</p>
+            } else {
+                <ol class="stream-items">
+                @for(post <- posts) {
+                    @streamItem(post.author, post, self)
+                }
+                </ol>
+            }
+            </div>
+
+        </div> <!-- .col-md-10 -->
+
+        <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">查看大图</h4>
+                    </div>
+                    <div class="modal-body  text-center">
+                        <img id="modalImg" src="" alt="查看大图"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- .jumbotron -->
+    @includeCommonJS()
+    <script src="@routes.Assets.at("javascripts/account/postStream.js")"></script>
+}

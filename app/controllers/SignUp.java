@@ -13,9 +13,9 @@ import utils.DateUtils;
 import utils.ErrorUtils;
 import views.html.account.activation;
 import views.html.account.signup;
-import views.html.error.error;
 import views.html.message;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,8 +40,13 @@ public class SignUp extends Controller {
     public static Result submit() {
         Form<User> form = userForm.bindFromRequest();
         User user = form.get();
-        user.postLastCheck = DateUtils.now();
-        user.commentLastCheck = DateUtils.now();
+        Date now = DateUtils.now();
+        user.signUp = now;
+        user.lastLogin = now;
+        user.notesCheck = now;
+        user.postLastCheck = now;
+        user.commentLastCheck = now;
+        user.followerLastCheck = now;
         user.save();
 
         session("uid", user.userId.toString());
