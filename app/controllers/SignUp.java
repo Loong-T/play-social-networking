@@ -4,6 +4,7 @@ import com.typesafe.plugin.MailerAPI;
 import com.typesafe.plugin.MailerPlugin;
 import models.account.User;
 import org.apache.commons.validator.routines.EmailValidator;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -38,8 +39,18 @@ public class SignUp extends Controller {
 
     // TODO 已登录的检查；有效性的验证
     public static Result submit() {
-        Form<User> form = userForm.bindFromRequest();
-        User user = form.get();
+        DynamicForm data = Form.form().bindFromRequest();
+        String email = data.get("email");
+        String name = data.get("userName");
+        String password = data.get("password");
+
+        User user = new User();
+        if (nullOrEmpty(email) || nullOrEmpty(name) || nullOrEmpty(password)) {
+            redirect("/login");
+        }
+        user.email = email;
+        user.userName = name;
+        user.setPassword(password);
         Date now = DateUtils.now();
         user.signUp = now;
         user.lastLogin = now;
@@ -47,11 +58,16 @@ public class SignUp extends Controller {
         user.postLastCheck = now;
         user.commentLastCheck = now;
         user.followerLastCheck = now;
+        
         user.save();
 
         session("uid", user.userId.toString());
 
         return redirect("/sendemail");
+    }
+
+    private static boolean nullOrEmpty(String string) {
+        return string == null || "".equals(string.trim());
     }
 
     /**

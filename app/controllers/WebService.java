@@ -3,7 +3,6 @@ package controllers;
 import models.account.Relationship;
 import models.account.User;
 import models.group.Group;
-import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
